@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   logoContainer: { backgroundColor: '#FFFFFF', paddingHorizontal: 28, paddingVertical: 18, borderRadius: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.15, shadowRadius: 12, elevation: 5, marginBottom: 32 },
   logoText: { fontSize: 24, fontWeight: '700', color: '#0F172A', letterSpacing: -0.5 },
   sloganText: { fontSize: 16, color: '#94A3B8', textAlign: 'center', paddingHorizontal: 24, lineHeight: 24, marginBottom: 40 },
-  goalCard: { backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: 16, borderWith: 1, borderColor: 'rgba(255, 255, 255, 0.08)', padding: 18, width: '100%' },
+  goalCard: { backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.08)', padding: 18, width: '100%' },
   cardHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   iconAndTitle: { flexDirection: 'row', alignItems: 'center' },
   iconCircle: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(16, 185, 129, 0.15)', justifyContent: 'center', alignItems: 'center', marginRight: 12 },

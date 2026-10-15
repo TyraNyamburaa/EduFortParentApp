@@ -7,6 +7,8 @@ import LanguageSelectionScreen from '../screens/auth/LanguageSelectionScreen';
 import PhoneRegistrationScreen from '../screens/auth/PhoneRegistrationScreen';
 import OtpVerificationScreen from '../screens/auth/OtpVerificationScreen';
 import NotFoundScreen from '../screens/dashboard/NotFoundScreen';
+import ParentProfileSetupScreen from '../screens/profile/ParentProfileSetupScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,9 @@ export default function AuthNavigator() {
       <Stack.Screen name="PhoneRegistration" component={PhoneRegistrationScreen} />
       <Stack.Screen name="OtpVerification" component={OtpVerificationScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} />
+      <Stack.Screen name="ParentProfileSetup" component={ParentProfileSetupScreen} />
+      <Stack.Screen name="AddChildAndSchool" component={NotFoundScreen} />
+      <Stack.Screen name="HomeDashboard" component={NotFoundScreen} />
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 import { supabase } from '../../utils/supabase';
 
@@ -16,13 +17,25 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
     const formattedLine = phoneNumber.startsWith('+254') ? phoneNumber : `+254${phoneNumber.replace(/^0/, '')}`;
     
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ phone: formattedLine });
-    setLoading(false);
 
-    if (error) {
-      Alert.alert('Routing Failed', error.message);
-    } else {
+    if (__DEV__) {
       navigation.navigate('OtpVerification', { verifiedPhone: formattedLine });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ phone: formattedLine });
+
+      if (error) {
+        Alert.alert('Routing Failed', error.message);
+      } else {
+        navigation.navigate('OtpVerification', { verifiedPhone: formattedLine });
+      }
+    } catch (err: any) {
+      Alert.alert('Routing Failed', err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,7 +47,7 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
 
       <View style={styles.content}>
         <Text style={styles.heading}>Enter your phone number</Text>
-        <Text style={styles.body}>We'll send a one-time verification code via SMS to confirm your account and link your M-Pesa wallet.</Text>
+        <Text style={styles.body}>We&apos;ll send a one-time verification code via SMS to confirm your account and link your M-Pesa wallet.</Text>
         
         <View style={styles.networkBadge}>
           <Text style={styles.networkText}>● M-Pesa Express & Airtel Money supported</Text>

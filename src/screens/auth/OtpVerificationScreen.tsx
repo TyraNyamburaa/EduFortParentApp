@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 import { supabase } from '../../utils/supabase';
 
@@ -14,17 +15,29 @@ export default function OtpVerificationScreen({ route, navigation }: any) {
     }
 
     setLoading(true);
-    const { data, error } = await supabase.auth.verifyOtp({
-      phone: verifiedPhone,
-      token: pinToken,
-      type: 'sms'
-    });
-    setLoading(false);
 
-    if (error) {
-      Alert.alert('Authentication Mismatch', error.message);
-    } else if (data.session) {
-      navigation.reset({ index: 0, routes: [{ name: 'HomeDashboard' }] });
+    if (__DEV__) {
+      navigation.replace('ParentProfileSetup');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        phone: verifiedPhone,
+        token: pinToken,
+        type: 'sms'
+      });
+
+      if (error) {
+        Alert.alert('Authentication Mismatch', error.message);
+      } else if (data.session) {
+        navigation.replace('ParentProfileSetup');
+      }
+    } catch (err: any) {
+      Alert.alert('Authentication Mismatch', err.message);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 
 export default function WelcomeScreen({ navigation }: any) {
@@ -11,7 +12,7 @@ export default function WelcomeScreen({ navigation }: any) {
         <View style={styles.imageCard}>
           <Image 
             source={{ uri: 'https://unsplash.com' }} 
-            style={styles.heroImage} 
+            style={imageStyles.heroImage}
           />
           <View style={styles.floatingBadge}>
             <Text style={styles.badgeTitle}>Term 2 Tuition Goal</Text>
@@ -33,7 +34,7 @@ export default function WelcomeScreen({ navigation }: any) {
         </View>
 
         {/* App Title Header */}
-        <Text style={styles.mainHeading}>Save for your child's education one step at a time.</Text>
+        <Text style={styles.mainHeading}>Save for your child&apos;s education one step at a time.</Text>
 
         {/* Value Proposition Rows */}
         <View style={styles.propRow}>
@@ -74,11 +75,14 @@ export default function WelcomeScreen({ navigation }: any) {
   );
 }
 
+const imageStyles = StyleSheet.create({
+  heroImage: { width: '100%', height: '100%' },
+});
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   scrollContent: { padding: 24 },
   imageCard: { height: 200, width: '100%', borderRadius: 16, overflow: 'hidden', backgroundColor: '#E2E8F0', position: 'relative' },
-  heroImage: { width: '100%', height: '100%' },
   floatingBadge: { position: 'absolute', bottom: 12, left: 12, right: 12, backgroundColor: 'rgba(0,0,0,0.7)', padding: 12, borderRadius: 8, flexDirection: 'row', justifyContent: 'space-between' },
   badgeTitle: { color: '#FFF', fontWeight: '500' },
   badgeVal: { color: '#10B981', fontWeight: '700' },
@@ -88,11 +92,11 @@ const styles = StyleSheet.create({
   studentInfo: { flex: 1, marginLeft: 12 },
   studentName: { fontSize: 16, fontWeight: '600', color: '#1E293B' },
   studentClass: { fontSize: 12, color: '#64748B', marginTop: 2 },
-  targetWrapper: { alignItems: 'end' },
+  targetWrapper: { alignItems: 'flex-end' },
   targetLabel: { fontSize: 11, color: '#64748B' },
   targetPercent: { fontSize: 16, fontWeight: '700', color: '#0F172A' },
   mainHeading: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 24, marginBottom: 16 },
-  propRow: { flexDirection: 'row', marginValue: 12, marginVertical: 12 },
+  propRow: { flexDirection: 'row', marginVertical: 12 },
   iconPlaceholder: { width: 36, height: 36, borderRadius: 8, backgroundColor: '#E0F2FE' },
   propTextBlocks: { flex: 1, marginLeft: 12 },
   propHeadline: { fontSize: 15, fontWeight: '600', color: '#1E293B' },
