@@ -6,9 +6,10 @@ import { THEME } from '../constants/theme';
 // Import your existing screen modules
 import HomeDashboardScreen from '../screens/dashboard/HomeDashboardScreen';
 import ChildLedgerScreen from '../screens/dashboard/ChildLedgerScreen';
+import SavingsScreen from '../screens/dashboard/SavingsScreen';
+import CalendarScreen from '../screens/dashboard/CalendarScreen';
 
 // Temporary placeholder containers for unbuilt structural tabs
-function SavingsPlaceholder() { return <View style={styles.center}><Text>Savings System Matrix</Text></View>; }
 function HistoryPlaceholder() { return <View style={styles.center}><Text>Transaction Logs Audit</Text></View>; }
 function MorePlaceholder() { return <View style={styles.center}><Text>Configuration Panel Engine</Text></View>; }
 
@@ -19,10 +20,10 @@ export default function TabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#005F4B',     // Active EduFort Teal Green from your design
-        tabBarInactiveTintColor: '#94A3B8',   // Inactive muted gray
+        tabBarActiveTintColor: '#005F4B',
+        tabBarInactiveTintColor: '#94A3B8',
         tabBarStyle: styles.tabBarLayout,
-        tabBarLabelStyle: styles.tabLabel,
+        tabBarLabelStyle:styles.tabLabel,
         tabBarIcon: ({ color, focused }) => {
           let iconSymbol = '•';
           if (route.name === 'HomeHub') iconSymbol = '🏠';
@@ -41,9 +42,10 @@ export default function TabNavigator() {
     >
       <Tab.Screen name="HomeHub" component={HomeDashboardScreen} options={{ tabBarLabel: 'Home' }} />
       <Tab.Screen name="FeesHub" component={ChildLedgerScreen} options={{ tabBarLabel: 'Fees' }} initialParams={{ childId: 'global', childName: 'All Children' }} />
-      <Tab.Screen name="SavingsHub" component={SavingsPlaceholder} options={{ tabBarLabel: 'Savings' }} />
+      <Tab.Screen name="SavingsHub" component={SavingsScreen} options={{ tabBarLabel: 'Savings' }} />
       <Tab.Screen name="HistoryHub" component={HistoryPlaceholder} options={{ tabBarLabel: 'History' }} />
       <Tab.Screen name="MoreHub" component={MorePlaceholder} options={{ tabBarLabel: 'More' }} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} options={{ tabBarLabel: 'Calendar', tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>📅</Text> }} />
     </Tab.Navigator>
   );
 }

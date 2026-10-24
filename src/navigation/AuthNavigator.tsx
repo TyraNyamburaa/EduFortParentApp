@@ -7,6 +7,7 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import LanguageSelectionScreen from '../screens/auth/LanguageSelectionScreen';
 import PhoneRegistrationScreen from '../screens/auth/PhoneRegistrationScreen';
 import OtpVerificationScreen from '../screens/auth/OtpVerificationScreen';
+import QuickDepositScreen from '../screens/dashboard/QuickDepositScreen';
 
 // Core functional workflow containers
 import ParentProfileSetupScreen from '../screens/profile/ParentProfileSetupScreen';
@@ -25,6 +26,7 @@ export default function AuthNavigator() {
       <Stack.Screen name="OtpVerification" component={OtpVerificationScreen} />
       <Stack.Screen name="ParentProfileSetup" component={ParentProfileSetupScreen} />
       <Stack.Screen name="AddChildAndSchool" component={AddChildScreen} />
+      <Stack.Screen name="QuickDeposit" component={QuickDepositScreen} options={{ headerShown: false }} />
       
       {/* Root entry node links directly into the global Bottom Tabs shell layout */}
       <Stack.Screen name="HomeDashboard" component={TabNavigator} />
