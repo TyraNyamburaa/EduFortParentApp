@@ -58,6 +58,13 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
     }
 
     setLoading(true);
+
+    if (__DEV__) {
+      setLoading(false);
+      navigation.navigate("AddChildAndSchool");
+      return;
+    }
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
