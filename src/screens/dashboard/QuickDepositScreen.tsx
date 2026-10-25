@@ -27,16 +27,6 @@ export default function QuickDepositScreen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.back()}>
-          <Text style={styles.backBtn}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>Quick Deposit M Pesa</Text>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarTxt}>👤</Text>
-        </View>
-      </View>
-
       <View style={styles.card}>
         <View style={styles.cardTop}>
           <Text style={styles.cardTitle}>Deposit to Edufort Vault</Text>
@@ -155,12 +145,7 @@ export default function QuickDepositScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
-  topBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, marginTop: 8 },
-  backBtn: { fontSize: 24, color: THEME.colors.textDark },
-  title: { fontSize: 17, fontWeight: '700', color: THEME.colors.textDark },
-  avatar: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#E0F2FE', justifyContent: 'center', alignItems: 'center' },
-  avatarTxt: { fontSize: 16 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   card: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 14, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   cardTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   cardTitle: { fontSize: 15, fontWeight: '700', color: THEME.colors.textDark },

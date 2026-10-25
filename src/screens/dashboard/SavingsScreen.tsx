@@ -174,7 +174,7 @@ export default function SavingsScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   headerTitle: { fontSize: 13, fontWeight: '700', color: THEME.colors.textMuted, letterSpacing: 1, marginBottom: 12 },
   vaultCard: { backgroundColor: '#0F2922', borderRadius: 16, padding: 20, marginBottom: 16 },
   vaultTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },

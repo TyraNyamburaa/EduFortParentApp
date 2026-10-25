@@ -10,17 +10,6 @@ export default function CalendarScreen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <View style={styles.topBar}>
-        <View>
-          <Text style={styles.headerTitle}>EDUFORT PARENT</Text>
-          <Text style={styles.screenTitle}>Term Fee Calendar</Text>
-        </View>
-        <View style={styles.topRight}>
-          <TouchableOpacity style={styles.iconBtn}><Text style={styles.iconTxt}>🔔</Text></TouchableOpacity>
-          <View style={styles.avatar}><Text style={styles.avatarTxt}>👤</Text></View>
-        </View>
-      </View>
-
       <View style={styles.syncCard}>
         <View style={styles.syncLeft}>
           <View style={styles.syncIconWrap}><Text style={styles.syncIcon}>🏫</Text></View>
@@ -77,7 +66,7 @@ export default function CalendarScreen({ navigation }: any) {
           <View style={styles.badge}><Text style={styles.badgeTxt}>18 DAYS LEFT</Text></View>
           <Text style={styles.badge2}>Grade 1 Term 2</Text>
         </View>
-        <Text style={styles.balanceTitle}>Malia's Final Balance</Text>
+        <Text style={styles.balanceTitle}>Malia&apos;s Final Balance</Text>
         <Text style={styles.balanceSub}>You have saved KES 14,500 of KES 25,000.</Text>
         <Text style={styles.balanceSub2}>Putting aside just KES 100/day closes the gap comfortably before 15 July.</Text>
         <View style={styles.progressTrack}>
@@ -207,7 +196,7 @@ export default function CalendarScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
   scroll: { padding: 16, paddingBottom: 40 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, marginTop: 8 },
   headerTitle: { fontSize: 12, color: THEME.colors.textMuted, fontWeight: '700', letterSpacing: 1 },
   screenTitle: { fontSize: 22, fontWeight: '800', color: THEME.colors.textDark },
   topRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
