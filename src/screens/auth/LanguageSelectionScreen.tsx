@@ -14,11 +14,17 @@ const REGIONAL_LANGUAGES = [
 
 export default function LanguageSelectionScreen({ navigation }: any) {
   const [selected, setSelected] = useState('en');
+  const STEP = 1;
+  const TOTAL = 5;
+  const pct = (STEP / TOTAL) * 100;
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.progressHeader}>
-        <Text style={styles.stepCounter}>Step 1 of 5</Text>
+        <Text style={styles.stepCounter}>Step {STEP} of {TOTAL}</Text>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${pct}%` }]} />
+        </View>
       </View>
       
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -54,7 +60,9 @@ export default function LanguageSelectionScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressHeader: { paddingHorizontal: 24, paddingTop: 16 },
+  progressHeader: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   stepCounter: { color: '#0D6EFD', fontWeight: '600', fontSize: 13 },
   scroll: { paddingHorizontal: 24, paddingBottom: 100 },
   sectionHeader: { fontSize: 11, fontWeight: '700', color: '#64748B', marginTop: 16 },

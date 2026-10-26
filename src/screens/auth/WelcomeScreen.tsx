@@ -10,9 +10,10 @@ export default function WelcomeScreen({ navigation }: any) {
         
         {/* Top Feature Graphic Showcase */}
         <View style={styles.imageCard}>
-          <Image 
-            source={{ uri: 'https://unsplash.com' }} 
+          <Image
+            source={require('../../../assets/edufort.jpg')}
             style={imageStyles.heroImage}
+            resizeMode="cover"
           />
           <View style={styles.floatingBadge}>
             <Text style={styles.badgeTitle}>Term 2 Tuition Goal</Text>
@@ -38,7 +39,7 @@ export default function WelcomeScreen({ navigation }: any) {
 
         {/* Value Proposition Rows */}
         <View style={styles.propRow}>
-          <View style={styles.iconPlaceholder} />
+          <Image source={require('../../../assets/money.png')} style={styles.iconImage} resizeMode="cover" />
           <View style={styles.propTextBlocks}>
             <Text style={styles.propHeadline}>KES 10 - KES 100 Daily Micro-savings</Text>
             <Text style={styles.propSub}>Stash small change directly from your daily MPesa float.</Text>
@@ -46,7 +47,7 @@ export default function WelcomeScreen({ navigation }: any) {
         </View>
 
         <View style={styles.propRow}>
-          <View style={styles.iconPlaceholder} />
+          <Image source={require('../../../assets/sync.png')} style={styles.iconImage} resizeMode="cover" />
           <View style={styles.propTextBlocks}>
             <Text style={styles.propHeadline}>Zero Arrears & Direct School Sync</Text>
             <Text style={styles.propSub}>Instant digital receipts straight to the school bursar ledger.</Text>
@@ -63,7 +64,7 @@ export default function WelcomeScreen({ navigation }: any) {
 
         <TouchableOpacity 
           style={styles.loginLinkButton}
-          onPress={() => navigation.navigate('PhoneRegistration')}
+          onPress={() => navigation.navigate('WelcomeBack')}
         >
           <Text style={styles.loginLinkText}>Already have an account? <Text style={{fontWeight: 'bold'}}>Log In</Text></Text>
         </TouchableOpacity>
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
   targetLabel: { fontSize: 11, color: '#64748B' },
   targetPercent: { fontSize: 16, fontWeight: '700', color: '#0F172A' },
   mainHeading: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 24, marginBottom: 16 },
-  propRow: { flexDirection: 'row', marginVertical: 12 },
-  iconPlaceholder: { width: 36, height: 36, borderRadius: 8, backgroundColor: '#E0F2FE' },
+  propRow: { flexDirection: 'row', marginVertical: 12, alignItems: 'center' },
+  iconImage: { width: 36, height: 36, borderRadius: 8, backgroundColor: '#E0F2FE', marginRight: 12 },
   propTextBlocks: { flex: 1, marginLeft: 12 },
   propHeadline: { fontSize: 15, fontWeight: '600', color: '#1E293B' },
   propSub: { fontSize: 13, color: '#64748B', marginTop: 2 },

@@ -42,6 +42,9 @@ const INCOME_RHYTHMS = [
 ];
 
 export default function ParentProfileSetupScreen({ navigation }: any) {
+  const STEP = 4;
+  const TOTAL = 5;
+  const pct = Math.round((STEP / TOTAL) * 100);
   const [fullName, setFullName] = useState("");
   const [relationship, setRelationship] = useState("Mother");
   const [county, setCounty] = useState("Nairobi County");
@@ -101,12 +104,9 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       {/* Dynamic Scannable Header Tracker */}
       <View style={styles.progressBarWrapper}>
-        <View style={styles.progressLabelRow}>
-          <Text style={styles.stepIndicator}>● STEP 4 OF 5</Text>
-          <Text style={styles.percentText}>80% Completed</Text>
-        </View>
-        <View style={styles.trackBackground}>
-          <View style={styles.activeTrackBar} />
+        <Text style={styles.stepIndicator}>Step {STEP} of {TOTAL}</Text>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${pct}%` }]} />
         </View>
       </View>
 
@@ -244,31 +244,10 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFFFFF" },
-  progressBarWrapper: {
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-  },
-  progressLabelRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  stepIndicator: { fontSize: 11, fontWeight: "700", color: "#15803D" },
-  percentText: { fontSize: 12, fontWeight: "600", color: "#64748B" },
-  trackBackground: {
-    height: 6,
-    backgroundColor: "#F1F5F9",
-    borderRadius: 3,
-    marginTop: 8,
-    overflow: "hidden",
-  },
-  activeTrackBar: {
-    height: "100%",
-    width: "80%",
-    backgroundColor: "#10B981",
-    borderRadius: 3,
-  },
+  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
+  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD' },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   scroll: { paddingHorizontal: 24, paddingBottom: 40 },
   mainTitle: {
     fontSize: 24,

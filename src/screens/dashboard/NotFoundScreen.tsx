@@ -10,17 +10,8 @@ const NAV_ITEMS = [
 ];
 
 export default function NotFoundScreen({ navigation }: any) {
-  return (
+return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.back()}><Text style={styles.backTxt}>←</Text></TouchableOpacity>
-        <View style={styles.topRight}>
-          <View style={styles.profileIcon}><Text style={styles.profileIconTxt}>👤</Text></View>
-        </View>
-      </View>
-
-      <Text style={styles.title}>Not Found</Text>
-
       <View style={styles.ledgerCard}>
         <View style={styles.ledgerBadge}><Text style={styles.ledgerBadgeTxt}>LEDGER QUERY</Text></View>
         <View style={styles.ledgerBadge2}><Text style={styles.ledgerBadgeTxt2}>TERM 1</Text></View>
@@ -41,7 +32,7 @@ export default function NotFoundScreen({ navigation }: any) {
         <Text style={styles.noticeBadge}>NOTICE OF FILE UPDATE</Text>
       </View>
 
-      <Text style={styles.headline}>We Couldn't Find That Record</Text>
+      <Text style={styles.headline}>We Couldn&apos;t Find That Record</Text>
       <Text style={styles.subtext}>The school fee schedule, receipt, or ledger link you are looking for might have been archived, updated by the school bursar, or moved to a new term.</Text>
 
       <TouchableOpacity style={styles.homeBtn}>
@@ -78,13 +69,7 @@ export default function NotFoundScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
   scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 },
-  backTxt: { fontSize: 24, color: THEME.colors.textDark },
-  topRight: { flexDirection: 'row', gap: 10 },
-  profileIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#E0F2FE', justifyContent: 'center', alignItems: 'center' },
-  profileIconTxt: { fontSize: 18 },
-  title: { fontSize: 22, fontWeight: '800', color: THEME.colors.textDark, marginBottom: 24 },
-  ledgerCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 16, padding: 20, marginBottom: 20, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8 },
+ledgerCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 16, padding: 20, marginBottom: 20, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8 },
   ledgerBadge: { position: 'absolute', top: 14, left: 14, backgroundColor: '#FEF3C7', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
   ledgerBadgeTxt: { fontSize: 10, color: '#92400E', fontWeight: '700' },
   ledgerBadge2: { position: 'absolute', top: 14, right: 14, backgroundColor: '#D1FAE5', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },

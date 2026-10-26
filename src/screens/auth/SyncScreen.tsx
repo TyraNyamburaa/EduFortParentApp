@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { THEME } from '../../constants/theme';
 
 export default function SyncScreen({ navigation }: any) {
@@ -14,14 +14,14 @@ export default function SyncScreen({ navigation }: any) {
         <View style={[styles.ring, styles.ringOuter]} />
         <View style={[styles.ring, styles.ringMid]} />
         <View style={styles.ringCenter}>
-          <Text style={styles.ringLogo}>EduFort</Text>
+          <Image source={require('../../../assets/splash-logo.png')} style={styles.ringLogo} resizeMode="contain" />
           <Text style={styles.ringPct}>96%</Text>
         </View>
         <View style={styles.ringDot} />
       </View>
 
       <Text style={styles.title}>Syncing School Ledger & M-Pesa Float</Text>
-      <Text style={styles.subtitle}>Securing your child's educational records with immutable cryptographic receipts.</Text>
+      <Text style={styles.subtitle}>Securing your child&apos;s educational records with immutable cryptographic receipts.</Text>
 
       <View style={styles.statusCard}>
         <View style={styles.statusRow}>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   ringOuter: { width: 220, height: 220, borderColor: '#E2E8F0' },
   ringMid: { width: 180, height: 180, borderColor: '#005F4B', borderLeftColor: 'transparent', borderTopColor: 'transparent', transform: [{ rotate: '-135deg' }] },
   ringCenter: { width: 140, height: 140, borderRadius: 70, backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8 },
-  ringLogo: { fontSize: 16, fontWeight: '800', color: THEME.colors.textDark, marginBottom: 4 },
+  ringLogo: { width: 72, height: 22, marginBottom: 4, alignSelf: 'center' },
   ringPct: { fontSize: 28, fontWeight: '800', color: THEME.colors.primary },
   ringDot: { position: 'absolute', top: 10, right: 60, width: 14, height: 14, borderRadius: 7, backgroundColor: THEME.colors.accentGreen, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 },
   title: { fontSize: 24, fontWeight: '800', color: THEME.colors.textDark, textAlign: 'center', marginBottom: 8 },

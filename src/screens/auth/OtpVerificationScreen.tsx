@@ -8,6 +8,9 @@ export default function OtpVerificationScreen({ route, navigation }: any) {
   const { verifiedPhone } = route.params;
   const [pinToken, setPinToken] = useState('');
   const [loading, setLoading] = useState(false);
+  const STEP = 3;
+  const TOTAL = 5;
+  const pct = (STEP / TOTAL) * 100;
 
   const processSecureAuthVerify = async () => {
     if (pinToken.length !== 4) {
@@ -44,7 +47,10 @@ export default function OtpVerificationScreen({ route, navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.progressHeader}>
-        <Text style={styles.stepMarker}>Step 3 of 5</Text>
+        <Text style={styles.stepMarker}>Step {STEP} of {TOTAL}</Text>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${pct}%` }]} />
+        </View>
       </View>
 
       <View style={styles.content}>
@@ -88,7 +94,9 @@ export default function OtpVerificationScreen({ route, navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressHeader: { paddingHorizontal: 24, paddingTop: 16 },
+  progressHeader: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   stepMarker: { color: '#0D6EFD', fontWeight: '600', fontSize: 13 },
   content: { flex: 1, padding: 24 },
   title: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 8 },

@@ -7,6 +7,9 @@ import { supabase } from '../../utils/supabase';
 export default function PhoneRegistrationScreen({ navigation }: any) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const STEP = 2;
+  const TOTAL = 5;
+  const pct = (STEP / TOTAL) * 100;
 
   const triggerSmsOtpFlow = async () => {
     if (phoneNumber.length < 9) {
@@ -42,7 +45,10 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.progressHeader}>
-        <Text style={styles.stepText}>STEP 2 OF 5</Text>
+        <Text style={styles.stepText}>STEP {STEP} OF {TOTAL}</Text>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${pct}%` }]} />
+        </View>
       </View>
 
       <View style={styles.content}>
@@ -81,7 +87,9 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressHeader: { paddingHorizontal: 24, paddingTop: 16 },
+  progressHeader: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   stepText: { color: '#10B981', fontWeight: '700', fontSize: 12 },
   content: { flex: 1, padding: 24 },
   heading: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 8 },

@@ -163,7 +163,7 @@ export default function ReceiptExportScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   statusRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   receiptMeta: { fontSize: 12, color: THEME.colors.textMuted },
   verifiedBadge: { backgroundColor: '#10B981', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },

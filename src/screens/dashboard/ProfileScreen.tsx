@@ -7,17 +7,6 @@ export default function ProfileScreen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <View style={styles.topBar}>
-        <View>
-          <Text style={styles.headerTitle}>EDUFORT PARENT</Text>
-          <Text style={styles.screenTitle}>Financial Planning</Text>
-        </View>
-        <View style={styles.topRight}>
-          <TouchableOpacity style={styles.iconBtn}><Text style={styles.iconTxt}>🔔</Text></TouchableOpacity>
-          <View style={styles.avatar}><Text style={styles.avatarTxt}>👤</Text></View>
-        </View>
-      </View>
-
       <View style={styles.profileCard}>
         <View style={styles.profileLeft}>
           <View style={styles.profileAvatar}><Text style={styles.profileAvatarTxt}>👨</Text></View>
@@ -220,15 +209,7 @@ export default function ProfileScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, marginTop: 8 },
-  headerTitle: { fontSize: 12, color: THEME.colors.textMuted, fontWeight: '700', letterSpacing: 1 },
-  screenTitle: { fontSize: 22, fontWeight: '800', color: THEME.colors.textDark },
-  topRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  iconBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: THEME.colors.cardBackground, justifyContent: 'center', alignItems: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
-  iconTxt: { fontSize: 16 },
-  avatar: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#E0F2FE', justifyContent: 'center', alignItems: 'center' },
-  avatarTxt: { fontSize: 16 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   profileCard: { backgroundColor: '#0F2922', borderRadius: 16, padding: 16, marginBottom: 24 },
   profileLeft: { flexDirection: 'row', alignItems: 'flex-start' },
   profileAvatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#FDE68A', justifyContent: 'center', alignItems: 'center', marginRight: 14 },

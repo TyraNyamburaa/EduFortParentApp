@@ -84,7 +84,7 @@ export default function ReceiptScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   receiptCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 20, padding: 20, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.15, shadowRadius: 12 },
   receiptHeader: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 16, marginTop: 8 },
   schoolIconWrap: { width: 44, height: 44, borderRadius: 14, backgroundColor: '#0F2922', justifyContent: 'center', alignItems: 'center', marginRight: 12 },

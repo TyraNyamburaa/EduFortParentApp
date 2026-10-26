@@ -150,7 +150,7 @@ export default function UpdatesScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   headerTitle: { fontSize: 12, color: THEME.colors.textMuted, fontWeight: '700', letterSpacing: 1 },
   screenTitle: { fontSize: 26, fontWeight: '800', color: THEME.colors.textDark, marginBottom: 16 },
   filterRow: { flexDirection: 'row', marginBottom: 16, gap: 8 },

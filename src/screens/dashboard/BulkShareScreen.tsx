@@ -13,14 +13,6 @@ export default function BulkShareScreen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.back()}><Text style={styles.backTxt}>←</Text></TouchableOpacity>
-        <Text style={styles.title}>Bulk Share Receipts (Malia & Malkia)</Text>
-        <View style={styles.topRight}>
-          <TouchableOpacity style={styles.iconBtn}><Text style={styles.iconTxt}>👤</Text></TouchableOpacity>
-        </View>
-      </View>
-
       <View style={styles.balanceCard}>
         <View style={styles.balanceTop}>
           <Text style={styles.balanceLbl}>MULTI-CHILD DISPATCH</Text>
@@ -223,13 +215,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.colors.backgroundLight },
-  scroll: { padding: 16, paddingBottom: 40 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, marginTop: 8 },
-  backTxt: { fontSize: 24, color: THEME.colors.textDark },
-  title: { fontSize: 16, fontWeight: '700', color: THEME.colors.textDark, flex: 1, marginHorizontal: 12 },
-  topRight: { flexDirection: 'row', gap: 8 },
-  iconBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: THEME.colors.cardBackground, justifyContent: 'center', alignItems: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
-  iconTxt: { fontSize: 16 },
+  scroll: { padding: 16, paddingTop: 56, paddingBottom: 40 },
   balanceCard: { backgroundColor: '#0F2922', borderRadius: 16, padding: 20, marginBottom: 24 },
   balanceTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   balanceLbl: { color: '#10B981', fontSize: 11, fontWeight: '700', letterSpacing: 0.5 },

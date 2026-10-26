@@ -9,6 +9,9 @@ export default function AddChildScreen({ navigation }: any) {
   const [gradeClass, setGradeClass] = useState('');
   const [studentId, setStudentId] = useState('');
   const [loading, setLoading] = useState(false);
+  const STEP = 5;
+  const TOTAL = 5;
+  const pct = (STEP / TOTAL) * 100;
 
   const handleRegisterChild = async () => {
     if (!childName.trim() || !schoolName.trim()) {
@@ -88,12 +91,9 @@ export default function AddChildScreen({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       {/* Step 5 of 5 Progress HUD */}
       <View style={styles.progressBarWrapper}>
-        <View style={styles.progressLabelRow}>
-          <Text style={styles.stepIndicator}>● STEP 5 OF 5</Text>
-          <Text style={styles.percentText}>100% Completed</Text>
-        </View>
-        <View style={styles.trackBackground}>
-          <View style={styles.activeTrackBar} />
+        <Text style={styles.stepIndicator}>Step {STEP} of {TOTAL}</Text>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${pct}%` }]} />
         </View>
       </View>
 
@@ -160,12 +160,10 @@ export default function AddChildScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 16, marginBottom: 12 },
-  progressLabelRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  stepIndicator: { fontSize: 11, fontWeight: '700', color: '#10B981' },
-  percentText: { fontSize: 12, fontWeight: '600', color: '#64748B' },
-  trackBackground: { height: 6, backgroundColor: '#F1F5F9', borderRadius: 3, marginTop: 8, overflow: 'hidden' },
-  activeTrackBar: { height: '100%', width: '100%', backgroundColor: '#10B981', borderRadius: 3 },
+  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
+  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD' },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   scroll: { paddingHorizontal: 24, paddingBottom: 40 },
   mainTitle: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 12 },
   subtitle: { fontSize: 14, color: '#64748B', marginTop: 8, lineHeight: 20 },

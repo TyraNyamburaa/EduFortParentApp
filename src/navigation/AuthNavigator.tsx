@@ -33,11 +33,11 @@ export default function AuthNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash">
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-      <Stack.Screen name="LanguageSelection" component={LanguageSelectionScreen} />
-      <Stack.Screen name="PhoneRegistration" component={PhoneRegistrationScreen} />
-      <Stack.Screen name="OtpVerification" component={OtpVerificationScreen} />
-      <Stack.Screen name="ParentProfileSetup" component={ParentProfileSetupScreen} />
-      <Stack.Screen name="AddChildAndSchool" component={AddChildScreen} />
+      <Stack.Screen name="LanguageSelection" component={LanguageSelectionScreen} options={{ headerShown: true, title: 'Language', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
+      <Stack.Screen name="PhoneRegistration" component={PhoneRegistrationScreen} options={{ headerShown: true, title: 'Phone Registration', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
+      <Stack.Screen name="OtpVerification" component={OtpVerificationScreen} options={{ headerShown: true, title: 'Verify Code', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
+      <Stack.Screen name="ParentProfileSetup" component={ParentProfileSetupScreen} options={{ headerShown: true, title: 'Parent Profile', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
+      <Stack.Screen name="AddChildAndSchool" component={AddChildScreen} options={{ headerShown: true, title: 'Add Child', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
       <Stack.Screen name="QuickDeposit" component={QuickDepositScreen} options={{ headerShown: true, title: 'Quick Deposit M-Pesa', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
       <Stack.Screen name="Receipt" component={ReceiptScreen} options={{ headerShown: true, title: 'Official Receipt', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }, animation: 'slide_from_bottom' }} />
       <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: 'Term Fee Calendar', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' } }} />
@@ -49,7 +49,7 @@ export default function AuthNavigator() {
       <Stack.Screen name="ShareReceipt" component={ShareReceiptScreen} options={{ headerShown: true, title: 'Share via WhatsApp', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
       <Stack.Screen name="BulkShare" component={BulkShareScreen} options={{ headerShown: true, title: 'Bulk Share Receipts', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
       <Stack.Screen name="DispatchAudit" component={DispatchAuditScreen} options={{ headerShown: true, title: 'Dispatch Audit Trail', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
-      <Stack.Screen name="WelcomeBack" component={WelcomeBackScreen} options={{ headerShown: true, title: 'Welcome Back', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
+      <Stack.Screen name="WelcomeBack" component={WelcomeBackScreen} options={{ headerShown: true, title: '', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
       <Stack.Screen name="Sync" component={SyncScreen} options={{ headerShown: true, title: 'Sync Status', headerStyle: { backgroundColor: '#FFF' }, headerTintColor: '#005F4B', headerTitleStyle: { fontWeight: '800' }} } />
 
       {/* Root entry node links directly into the global Bottom Tabs shell layout */}
