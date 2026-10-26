@@ -160,9 +160,9 @@ export default function AddChildScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
-  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD' },
-  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 2, marginBottom: 16 },
+  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD', marginBottom: 4 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 4 },
   progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   scroll: { paddingHorizontal: 24, paddingBottom: 40 },
   mainTitle: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 12 },

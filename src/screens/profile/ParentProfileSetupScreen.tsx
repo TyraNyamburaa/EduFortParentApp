@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { THEME } from "../../constants/theme";
@@ -19,25 +20,25 @@ const INCOME_RHYTHMS = [
     id: "DAILY_WAGE",
     title: "Daily Wage",
     sub: "Casual or daily payout",
-    icon: "📅",
+    icon: require("../../../assets/daily-wage.png"),
   },
   {
     id: "WEEKLY_CHAMA",
     title: "Weekly / Chama",
     sub: "Cycle payouts",
-    icon: "🗓️",
+    icon: require("../../../assets/weekly-wage.png"),
   },
   {
     id: "MONTHLY_SALARY",
     title: "Monthly Salary",
     sub: "End-of-month pay",
-    icon: "🏦",
+    icon: require("../../../assets/monthly-wage.png"),
   },
   {
     id: "BUSINESS_TRADE",
     title: "Business & Trade",
     sub: "Flexible cash-flow",
-    icon: "🏪",
+    icon: require("../../../assets/business-wage.png"),
   },
 ];
 
@@ -142,19 +143,25 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
               ]}
               onPress={() => setRelationship(rel)}
             >
+              <Image
+                source={
+                  rel === "Mother"
+                    ? require("../../../assets/mother.png")
+                    : rel === "Father"
+                      ? require("../../../assets/father.png")
+                      : rel === "Guardian"
+                        ? require("../../../assets/guardian.png")
+                        : require("../../../assets/sponsor.png")
+                }
+                style={styles.relIcon}
+                resizeMode="cover"
+              />
               <Text
                 style={[
                   styles.relText,
                   relationship === rel && styles.relTextActive,
                 ]}
               >
-                {rel === "Mother"
-                  ? "👩‍👦 "
-                  : rel === "Father"
-                    ? "👨‍👦 "
-                    : rel === "Guardian"
-                      ? "🛡️ "
-                      : "🤝 "}
                 {rel}
               </Text>
             </TouchableOpacity>
@@ -164,7 +171,7 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
         {/* County Selection Box */}
         <Text style={styles.fieldLabel}>County / Region</Text>
         <TouchableOpacity style={styles.selectorDropdown}>
-          <Text style={styles.selectorValueText}>📍 {county}</Text>
+          <Text style={styles.selectorValueText}><Image source={require("../../../assets/location.png")} style={styles.locationIcon} resizeMode="cover" /> {county}</Text>
           <Text style={styles.dropdownArrow}>▼</Text>
         </TouchableOpacity>
 
@@ -198,7 +205,7 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
               onPress={() => setIncomeRhythm(rhythm.id)}
             >
               <View style={styles.rhythmHeader}>
-                <Text style={styles.rhythmIcon}>{rhythm.icon}</Text>
+                <Image source={rhythm.icon} style={styles.rhythmIcon} resizeMode="cover" />
                 <View
                   style={[
                     styles.radioCircle,
@@ -218,7 +225,10 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
 
         {/* Dignity First Promise Callout Panel */}
         <View style={styles.promiseCard}>
-          <Text style={styles.promiseTitle}>🛡️ Dignity First Promise</Text>
+          <View style={styles.promiseTitleRow}>
+            <Image source={require("../../../assets/verified.png")} style={styles.promiseIcon} resizeMode="cover" />
+            <Text style={styles.promiseTitleTxt}>Dignity First Promise</Text>
+          </View>
           <Text style={styles.promiseBody}>
             Edufort personalizes gentle reminders to fit your actual income
             rhythm for continuous progress.
@@ -244,9 +254,9 @@ export default function ParentProfileSetupScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#FFFFFF" },
-  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
-  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD' },
-  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressBarWrapper: { paddingHorizontal: 24, paddingTop: 2, marginBottom: 16 },
+  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD', marginBottom: 4 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 4 },
   progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   scroll: { paddingHorizontal: 24, paddingBottom: 40 },
   mainTitle: {
@@ -295,6 +305,8 @@ const styles = StyleSheet.create({
   },
     relCapsule: {
     width: "48%",
+    flexDirection: "column",
+    gap: 8,
     backgroundColor: "#F8FAFC",
     borderWidth: 1.5,
     borderColor: "#E2E8F0",
@@ -307,6 +319,7 @@ const styles = StyleSheet.create({
     borderColor: THEME.colors.primary,
     backgroundColor: "#E6F4F0",
   },
+  relIcon: { width: 32, height: 32, borderRadius: 16 },
   relText: { fontSize: 14, fontWeight: "500", color: "#475569" },
   relTextActive: { color: THEME.colors.primary, fontWeight: "600" },
   selectorDropdown: {
@@ -320,6 +333,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   selectorValueText: { fontSize: 15, color: "#1E293B", fontWeight: "500" },
+  locationIcon: { width: 18, height: 18, marginRight: 6 },
   dropdownArrow: { fontSize: 10, color: "#64748B" },
   incomeHeaderRow: {
     flexDirection: "row",
@@ -359,7 +373,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  rhythmIcon: { fontSize: 20 },
+  rhythmIcon: { width: 28, height: 28, borderRadius: 14 },
   radioCircle: {
     width: 18,
     height: 18,
@@ -392,12 +406,9 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 32,
   },
-  promiseTitle: {
-    color: "#16A34A",
-    fontWeight: "700",
-    fontSize: 14,
-    marginBottom: 4,
-  },
+  promiseTitleRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 4 },
+  promiseIcon: { width: 18, height: 18, marginRight: 6 },
+  promiseTitleTxt: { color: "#16A34A", fontWeight: "700", fontSize: 14 },
   promiseBody: { color: "#166534", fontSize: 13, lineHeight: 18 },
   submitBtn: {
     backgroundColor: THEME.colors.primary,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 import { supabase } from '../../utils/supabase';
@@ -45,7 +45,7 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.progressHeader}>
-        <Text style={styles.stepText}>STEP {STEP} OF {TOTAL}</Text>
+        <Text style={styles.stepIndicator}>STEP {STEP} OF {TOTAL}</Text>
         <View style={styles.progressTrack}>
           <View style={[styles.progressFill, { width: `${pct}%` }]} />
         </View>
@@ -61,9 +61,10 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
 
         <Text style={styles.inputLabel}>Mobile Phone Number</Text>
         <View style={styles.phoneInputContainer}>
-          <View style={styles.prefixWrapper}>
+          <TouchableOpacity style={styles.prefixWrapper}>
             <Text style={styles.prefixTxt}>🇰🇪 +254</Text>
-          </View>
+            <Image source={require('../../../assets/drop-down.png')} style={styles.dropDownIcon} resizeMode="cover" />
+          </TouchableOpacity>
           <TextInput
             style={styles.inputField}
             placeholder="0712 345 678"
@@ -73,7 +74,10 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
           />
         </View>
 
-        <Text style={styles.cryptoNotice}>🔒 Your number is encrypted and never shared. Standard SMS rates apply.</Text>
+        <View style={styles.cryptoRow}>
+          <Image source={require('../../../assets/lock.png')} style={styles.lockIcon} resizeMode="cover" />
+          <Text style={styles.cryptoNotice}>Your number is encrypted and never shared. Standard SMS rates apply.</Text>
+        </View>
 
         <View style={styles.flexSpacer} />
 
@@ -87,10 +91,10 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  progressHeader: { paddingHorizontal: 24, paddingTop: 8, marginBottom: 16 },
-  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 8 },
+  progressHeader: { paddingHorizontal: 24, paddingTop: 2, marginBottom: 16 },
+  progressTrack: { height: 6, backgroundColor: '#E2E8F0', borderRadius: 3, overflow: 'hidden', marginTop: 4 },
   progressFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
-  stepText: { color: '#10B981', fontWeight: '700', fontSize: 12 },
+  stepIndicator: { fontSize: 13, fontWeight: '600', color: '#0D6EFD', marginBottom: 4 },
   content: { flex: 1, padding: 24 },
   heading: { fontSize: 24, fontWeight: '700', color: '#1E293B', marginTop: 8 },
   body: { fontSize: 14, color: '#64748B', marginTop: 8, lineHeight: 20 },
@@ -98,10 +102,13 @@ const styles = StyleSheet.create({
   networkText: { color: '#15803D', fontSize: 12, fontWeight: '500' },
   inputLabel: { fontSize: 13, fontWeight: '600', color: '#475569', marginTop: 32, marginBottom: 8 },
   phoneInputContainer: { flexDirection: 'row', borderWidth: 1.5, borderColor: '#E2E8F0', borderRadius: THEME.radius.input, overflow: 'hidden' },
-  prefixWrapper: { backgroundColor: '#F8FAFC', paddingHorizontal: 16, justifyContent: 'center', borderRightWidth: 1, borderColor: '#E2E8F0' },
-  prefixTxt: { fontSize: 16, color: '#334155', fontWeight: '500' },
+  prefixWrapper: { backgroundColor: '#F8FAFC', paddingHorizontal: 16, justifyContent: 'center', borderRightWidth: 1, borderColor: '#E2E8F0', flexDirection: 'row', alignItems: 'center' },
+  prefixTxt: { fontSize: 16, color: '#334155', fontWeight: '500', marginRight: 6 },
+  dropDownIcon: { width: 14, height: 14 },
   inputField: { flex: 1, padding: 16, fontSize: 16, color: '#0F172A', fontWeight: '600' },
-  cryptoNotice: { fontSize: 12, color: '#94A3B8', marginTop: 12 },
+  cryptoRow: { flexDirection: 'row', alignItems: 'center', marginTop: 12 },
+  lockIcon: { width: 16, height: 16, marginRight: 8 },
+  cryptoNotice: { fontSize: 12, color: '#94A3B8', marginTop: 0 },
   flexSpacer: { flex: 1 },
   submitBtn: { backgroundColor: THEME.colors.primary, padding: 16, borderRadius: THEME.radius.button, alignItems: 'center', marginBottom: 16 },
   submitBtnTxt: { color: '#FFFFFF', fontSize: 16, fontWeight: '600' }
