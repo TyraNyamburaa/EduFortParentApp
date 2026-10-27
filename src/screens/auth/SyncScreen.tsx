@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 export default function SyncScreen({ navigation }: any) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
       <View style={styles.topBar}>
-        <Text style={styles.rail}>🔒 256-BIT TLS BANK RAIL</Text>
+        <Text style={styles.rail}><Icon name="lock" size={12} /> 256-BIT TLS BANK RAIL</Text>
         <View style={styles.liveBadge}><View style={styles.liveDot} /><Text style={styles.liveTxt}>Live Handshake</Text></View>
       </View>
 
@@ -25,7 +26,7 @@ export default function SyncScreen({ navigation }: any) {
 
       <View style={styles.statusCard}>
         <View style={styles.statusRow}>
-          <View style={styles.statusIconWrap}><Text style={styles.statusIcon}>🏫</Text></View>
+          <View style={styles.statusIconWrap}><Icon name="tuition" size={18} /></View>
           <View style={styles.statusBody}>
             <View style={styles.statusNameRow}>
               <Text style={styles.statusName}>Peter Kibukosya Primary Sc...</Text>
@@ -38,7 +39,7 @@ export default function SyncScreen({ navigation }: any) {
 
       <View style={styles.statusCard}>
         <View style={styles.statusRow}>
-          <View style={styles.statusIconWrap2}><Text style={styles.statusIcon2}>🔄</Text></View>
+          <View style={styles.statusIconWrap2}><Icon name="sync" size={18} /></View>
           <View style={styles.statusBody}>
             <View style={styles.statusNameRow}>
               <Text style={styles.statusName}>CBK Escrow Reconciliation</Text>
@@ -51,14 +52,14 @@ export default function SyncScreen({ navigation }: any) {
 
       <View style={styles.deltaCard}>
         <View style={styles.deltaLeft}>
-          <Text style={styles.deltaIcon}>🌐</Text>
+          <Icon name="language" size={16} style={styles.deltaIcon} />
           <Text style={styles.deltaTxt}>Delta-sync active • Offline cache safeguarded</Text>
         </View>
       </View>
 
       <View style={styles.tipCard}>
         <View style={styles.tipLeft}>
-          <Text style={styles.tipIcon}>💡</Text>
+          <Icon name="tip" size={16} style={styles.tipIcon} />
           <View>
             <Text style={styles.tipTitle}>PARENT MILESTONE TIP</Text>
             <Text style={styles.tipSub}>Did you know? Saving even KES 20 daily prevents unexpected end-of-term fee strain.</Text>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40, width: '100%' },
   rail: { fontSize: 11, color: THEME.colors.textMuted, fontWeight: '700', letterSpacing: 0.5 },
   liveBadge: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#D1FAE5', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12 },
-  liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: THEME.colors.accentGreen, marginRight: 6 },
+  liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: THEME.colors.secondary, marginRight: 6 },
   liveTxt: { fontSize: 10, color: '#065F46', fontWeight: '700' },
   ringWrap: { width: 220, height: 220, justifyContent: 'center', alignItems: 'center', marginBottom: 32, position: 'relative' },
   ring: { position: 'absolute', borderRadius: 110, borderWidth: 12 },
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   ringCenter: { width: 140, height: 140, borderRadius: 70, backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center', elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8 },
   ringLogo: { width: 72, height: 22, marginBottom: 4, alignSelf: 'center' },
   ringPct: { fontSize: 28, fontWeight: '800', color: THEME.colors.primary },
-  ringDot: { position: 'absolute', top: 10, right: 60, width: 14, height: 14, borderRadius: 7, backgroundColor: THEME.colors.accentGreen, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 },
+  ringDot: { position: 'absolute', top: 10, right: 60, width: 14, height: 14, borderRadius: 7, backgroundColor: THEME.colors.secondary, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 },
   title: { fontSize: 24, fontWeight: '800', color: THEME.colors.textDark, textAlign: 'center', marginBottom: 8 },
   subtitle: { fontSize: 14, color: THEME.colors.textMuted, textAlign: 'center', lineHeight: 20, marginBottom: 32 },
   statusCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 12, width: '100%', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
   deltaTxt: { fontSize: 13, color: '#1E40AF', fontWeight: '600' },
   tipCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 12, padding: 16, marginBottom: 24, width: '100%', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   tipLeft: { flexDirection: 'row', alignItems: 'flex-start' },
-  tipIcon: { fontSize: 20, marginRight: 12, color: THEME.colors.accentGreen },
+  tipIcon: { fontSize: 20, marginRight: 12, color: THEME.colors.secondary },
   tipTitle: { fontSize: 12, fontWeight: '700', color: THEME.colors.textDark, letterSpacing: 0.5, marginBottom: 4 },
   tipSub: { fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
   continueBtn: { backgroundColor: THEME.colors.primary, padding: 18, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 20, width: '100%', elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 6 },

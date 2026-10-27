@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon, { IconName } from '../../components/Icon';
 
 const FILTERS = [
   { label: 'All (5)', active: true },
@@ -10,7 +11,7 @@ const FILTERS = [
 
 const NOTIFICATIONS = [
   {
-    id: '1', type: 'nudge', time: 'Today, 8:30 PM', icon: '🔔', tag: 'Gentle Prompt',
+    id: '1', type: 'nudge', time: 'Today, 8:30 PM', icon: 'notification' as IconName, tag: 'Gentle Prompt',
     title: 'Evening Micro-Save Nudge',
     body: 'Jambo Winfrida Chelays Grade 6 tuition is only KES 2,000 away from full clearance before exams. Would you like to tuck away KES 100 this evening?',
     action: 'Save KES 100 Now (1-Tap M-Pesa)',
@@ -18,14 +19,14 @@ const NOTIFICATIONS = [
     note: 'No push alerts ever',
   },
   {
-    id: '2', type: 'school', time: 'Today, 11:15 AM', icon: '🏫', tag: 'Official School Notice',
+    id: '2', type: 'school', time: 'Today, 11:15 AM', icon: 'school' as IconName, tag: 'Official School Notice',
     title: 'Term 2 CBC Assessment Timetable',
     body: 'School bursar confirmed: All learners with active EduFort savings plans are cleared for exam hall access without fee stoppage.',
     source: 'Official School Notice • Peter Kibukosya',
     action: 'View Student Exam Pass (PDF)',
   },
   {
-    id: '3', type: 'milestone', time: 'Yesterday, 2:40 PM', icon: '🎉', tag: '60% Complete',
+    id: '3', type: 'milestone', time: 'Yesterday, 2:40 PM', icon: 'cheers' as IconName, tag: '60% Complete',
     title: 'Milestone Reached!',
     body: 'Horizontal Joy: You have reached 60% of Chelays Grade 6 annual fee goal. You are setting up your education for success, shilling by shilling.',
     child: 'Chelays Kerubo • Grade 6', progress: 'KES 13,800 / KES 23,000',
@@ -33,7 +34,7 @@ const NOTIFICATIONS = [
     action: 'View Dignity Certificate',
   },
   {
-    id: '4', type: 'payment', time: '12 July 2025 • 4:10 PM', icon: '✅', tag: 'Settled',
+    id: '4', type: 'payment', time: '12 July 2025 • 4:10 PM', icon: 'check' as IconName, tag: 'Settled',
     title: 'Payment Verified by Bursar',
     body: 'Peter Kibukosya Primary Paybill #842100 Student Reference: Malia Wanjiku(Tuition)',
     amount: 'Amount Credited: KES 5,000.00',
@@ -41,7 +42,7 @@ const NOTIFICATIONS = [
     action: 'View & Download Official Receipt',
   },
   {
-    id: '5', type: 'insight', time: '10 July 2025', icon: '💡', tag: 'Cash Rhythm',
+    id: '5', type: 'insight', time: '10 July 2025', icon: 'tip' as IconName, tag: 'Cash Rhythm',
     title: 'Gentle Pacing Insight',
     body: 'Your Chama payout is expected this Friday. We have temporarily lowered your daily micro-save suggestion to KES 50 to give your household wallet breathing room until funds land.',
     footer: 'Adaptive rhythm active • Adjust cycle',
@@ -75,7 +76,7 @@ export default function UpdatesScreen() {
       {NOTIFICATIONS.map((n) => (
         <View key={n.id} style={styles.card}>
           <View style={styles.cardTop}>
-            <View style={styles.iconWrap}><Text style={styles.iconEmoji}>{n.icon}</Text></View>
+            <View style={styles.iconWrap}><Icon name={n.icon} size={20} /></View>
             <View style={styles.cardMeta}>
               <Text style={styles.cardTime}>{n.time}</Text>
               <Text style={styles.cardTag}>{n.tag}</Text>
@@ -133,13 +134,13 @@ export default function UpdatesScreen() {
 
       <View style={styles.whatsappCard}>
         <View style={styles.whatsappLeft}>
-          <Text style={styles.whatsappIcon}>💬</Text>
+          <Icon name="chat" size={22} style={styles.whatsappIcon} />
           <View>
             <Text style={styles.whatsappTitle}>WhatsApp Instant Updates</Text>
             <Text style={styles.whatsappSub}>Prefer not opening the app? Receive gentle reminders, nudges, exams, and digital bursar receipts straight to your WhatsApp.</Text>
           </View>
         </View>
-        <View style={styles.whatsappBadge}><Text style={styles.whatsappBadgeTxt}>🔒</Text></View>
+          <View style={styles.whatsappBadge}><Icon name="lock" size={12} /></View>
       </View>
       <TouchableOpacity style={styles.connectBtn}>
         <Text style={styles.connectBtnTxt}>Connect WhatsApp Notifications</Text>
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
   card: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 14, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   cardTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   iconWrap: { width: 40, height: 40, borderRadius: 12, backgroundColor: '#F1F5F9', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  iconEmoji: { fontSize: 20 },
+  iconEmoji: { fontSize: 20 }, // no longer used
   cardMeta: { flex: 1 },
   cardTime: { fontSize: 12, color: THEME.colors.textMuted, marginBottom: 3 },
   cardTag: { fontSize: 10, color: THEME.colors.textMuted, backgroundColor: '#F1F5F9', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8, fontWeight: '600' },
@@ -179,14 +180,14 @@ const styles = StyleSheet.create({
   childVal: { fontSize: 12, fontWeight: '600', color: THEME.colors.textDark },
   progressWrap: { marginBottom: 10 },
   progressTrack: { height: 6, backgroundColor: '#F1F5F9', borderRadius: 3, overflow: 'hidden', marginBottom: 6 },
-  progressFill: { height: '100%', backgroundColor: THEME.colors.accentGreen, borderRadius: 3 },
+  progressFill: { height: '100%', backgroundColor: THEME.colors.secondary, borderRadius: 3 },
   progressVal: { fontSize: 12, fontWeight: '700', color: THEME.colors.textDark },
   metaRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
   metaLbl: { fontSize: 11, color: THEME.colors.textMuted },
   metaLbl2: { fontSize: 11, color: THEME.colors.textMuted },
   amountBox: { backgroundColor: '#F0FDF4', borderRadius: 10, padding: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   amountLbl: { fontSize: 12, color: THEME.colors.textMuted },
-  amountVal: { fontSize: 15, fontWeight: '800', color: THEME.colors.accentGreen },
+  amountVal: { fontSize: 15, fontWeight: '800', color: THEME.colors.secondary },
   cardSub: { fontSize: 11, color: THEME.colors.textMuted, marginBottom: 12, lineHeight: 16 },
   snoozeRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   snoozeTxt: { fontSize: 13, color: THEME.colors.primary, fontWeight: '600' },
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
   actionBtnTxt: { color: '#FFF', fontSize: 14, fontWeight: '700' },
   whatsappCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', backgroundColor: '#0F2922', borderRadius: 14, padding: 16, marginBottom: 16 },
   whatsappLeft: { flex: 1, marginRight: 12 },
-  whatsappIcon: { fontSize: 22, marginBottom: 8 },
+  whatsappIcon: { marginBottom: 8 },
   whatsappTitle: { color: '#FFF', fontSize: 15, fontWeight: '700', marginBottom: 4 },
   whatsappSub: { color: '#94A3B8', fontSize: 12, lineHeight: 18 },
   whatsappBadge: { backgroundColor: '#065F46', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10 },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const WEEK_DAYS = ['Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
 const DAYS = [11, 12, 13, 14, 15, 16, 17];
@@ -12,13 +13,13 @@ export default function CalendarScreen({ navigation }: any) {
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
       <View style={styles.syncCard}>
         <View style={styles.syncLeft}>
-          <View style={styles.syncIconWrap}><Text style={styles.syncIcon}>🏫</Text></View>
+          <View style={styles.syncIconWrap}><Icon name="tuition" size={18} /></View>
           <View>
             <Text style={styles.syncTitle}>BARAKA ACADEMY SYNC</Text>
             <Text style={styles.syncSub}>Official school portal verified 2 days ago</Text>
           </View>
         </View>
-        <TouchableOpacity><Text style={styles.settingsTxt}>⚙️</Text></TouchableOpacity>
+        <TouchableOpacity><Icon name="settings" size={18} /></TouchableOpacity>
       </View>
 
       <View style={styles.childRow}>
@@ -26,7 +27,7 @@ export default function CalendarScreen({ navigation }: any) {
           <Text style={styles.childPillTxt}>All Children (2)</Text>
         </View>
         <View style={styles.childPill}>
-          <View style={styles.miniAvatar}><Text style={styles.miniAvatarTxt}>👩</Text></View>
+          <View style={styles.miniAvatar}><Icon name="mother" size={12} /></View>
           <Text style={styles.childPillTxt}>Malia (Grade 1)</Text>
           <Text style={styles.dot}>●</Text>
         </View>
@@ -34,7 +35,7 @@ export default function CalendarScreen({ navigation }: any) {
 
       <View style={styles.cycleCard}>
         <View style={styles.cycleLeft}>
-          <Text style={styles.cycleIcon}>📅</Text>
+          <Icon name="calendar" size={20} style={styles.cycleIcon} />
           <View>
             <Text style={styles.cycleLbl}>ACADEMIC CYCLE</Text>
             <Text style={styles.cycleVal}>Term 2, 2025</Text>
@@ -115,14 +116,14 @@ export default function CalendarScreen({ navigation }: any) {
         <View style={styles.eventBody}>
           <View style={styles.eventTop}>
             <Text style={styles.eventTitle}>CBC Mid-Term Assessment</Text>
-            <View style={styles.checkBadge}><Text style={styles.checkTxt}>✓</Text></View>
+            <View style={styles.checkBadge}><Icon name="check" size={13} /></View>
           </View>
           <View style={styles.eventMetaRow}>
             <Text style={styles.eventChild}>Malia • Grade 5</Text>
             <Text style={styles.eventTag2}>Academic Assessment</Text>
           </View>
           <View style={styles.timelineRow}>
-            <Text style={styles.timelineIcon}>😊</Text>
+            <Icon name="assistant" size={14} style={styles.timelineIcon} />
             <Text style={styles.timelineTxt}>Timeline: 22 July – 26 July</Text>
             <Text style={styles.timelineTxt2}>Zero Clearance Stress</Text>
           </View>
@@ -149,7 +150,7 @@ export default function CalendarScreen({ navigation }: any) {
             <Text style={styles.eventTag3}>All Children</Text>
           </View>
           <View style={styles.noteRow}>
-            <Text style={styles.noteIcon}>ℹ️</Text>
+            <Icon name="info" size={14} style={styles.noteIcon} />
             <Text style={styles.noteTxt}>Report cards released on portal • Holidays run until 31 August</Text>
           </View>
         </View>
@@ -179,14 +180,14 @@ export default function CalendarScreen({ navigation }: any) {
 
       <View style={styles.circularCard}>
         <View style={styles.circularLeft}>
-          <Text style={styles.circularIcon}>📄</Text>
+          <Icon name="document" size={22} style={styles.circularIcon} />
           <View>
             <Text style={styles.circularTitle}>Have a printed school circular?</Text>
             <Text style={styles.circularSub}>Scan paper notice to auto-update dates</Text>
           </View>
         </View>
         <TouchableOpacity style={styles.scanBtn}>
-          <Text style={styles.scanBtnTxt}>🛒 Scan</Text>
+          <View style={styles.scanRow}><Icon name="search" size={13} /><Text style={styles.scanBtnTxt}> Scan</Text></View>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -275,11 +276,11 @@ const styles = StyleSheet.create({
   checkBadge: { width: 24, height: 24, borderRadius: 12, backgroundColor: '#10B981', justifyContent: 'center', alignItems: 'center' },
   checkTxt: { color: '#FFF', fontSize: 13, fontWeight: '700' },
   timelineRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' },
-  timelineIcon: { fontSize: 14 },
+  timelineIcon: { marginRight: 2 },
   timelineTxt: { fontSize: 12, color: THEME.colors.textMuted },
   timelineTxt2: { fontSize: 12, color: '#059669', fontWeight: '600' },
   noteRow: { flexDirection: 'row', alignItems: 'center' },
-  noteIcon: { fontSize: 14, marginRight: 6, color: THEME.colors.textMuted },
+  noteIcon: { marginRight: 6 },
   noteTxt: { flex: 1, fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
   linkIcon: { fontSize: 16, color: THEME.colors.textMuted },
   planningRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
@@ -294,5 +295,6 @@ const styles = StyleSheet.create({
   circularTitle: { fontSize: 14, fontWeight: '700', color: THEME.colors.textDark },
   circularSub: { fontSize: 12, color: THEME.colors.textMuted, marginTop: 2 },
   scanBtn: { backgroundColor: THEME.colors.primary, paddingHorizontal: 16, paddingVertical: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center' },
+  scanRow: { flexDirection: 'row', alignItems: 'center' },
   scanBtnTxt: { color: '#FFF', fontSize: 13, fontWeight: '700' },
 });

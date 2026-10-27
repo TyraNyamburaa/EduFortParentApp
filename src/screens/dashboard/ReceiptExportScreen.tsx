@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 export default function ReceiptExportScreen({ navigation }: any) {
   return (
@@ -19,7 +20,7 @@ export default function ReceiptExportScreen({ navigation }: any) {
 
       <View style={styles.officialCard}>
         <View style={styles.officialLeft}>
-          <Text style={styles.officialIcon}>🛡️</Text>
+          <Icon name="shield" size={20} style={styles.officialIcon} />
           <View>
             <Text style={styles.officialTitle}>Official Validated Bursar Copy</Text>
             <Text style={styles.officialSub}>Ministry of Education Reg. MOE/PR/8421 • Central Bank Escrow</Text>
@@ -29,7 +30,7 @@ export default function ReceiptExportScreen({ navigation }: any) {
 
       <View style={styles.bursarCard}>
         <View style={styles.bursarLeft}>
-          <View style={styles.bursarLogo}><Text style={styles.bursarLogoTxt}>🎓</Text></View>
+          <View style={styles.bursarLogo}><Icon name="tuition" size={20} /></View>
           <View style={styles.bursarBody}>
             <Text style={styles.bursarName}>Peter Kibukosya Primary</Text>
             <Text style={styles.bursarMeta}>P.O. Box 42100 • 00100 GPO Nairobi</Text>
@@ -139,7 +140,7 @@ export default function ReceiptExportScreen({ navigation }: any) {
           <Text style={styles.mpedaSub3}>ESCROW TRUST • Edufort / CBK</Text>
         </View>
         <View style={styles.mpedaRight}>
-          <View style={styles.qrWrap}><Text style={styles.qrEmoji}>📷</Text></View>
+          <View style={styles.qrWrap}><Text style={styles.qrEmoji}></Text></View>
         </View>
       </View>
 
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
   breakdownCred: { fontSize: 13, fontWeight: '700', color: THEME.colors.textDark, marginBottom: 3 },
   breakdownDue: { fontSize: 12, color: THEME.colors.textMuted },
   depositTxt: { fontSize: 10, color: THEME.colors.textMuted, marginBottom: 8 },
-  clearedTxt: { color: THEME.colors.accentGreen, fontWeight: '700' },
+  clearedTxt: { color: THEME.colors.secondary, fontWeight: '700' },
   totalRow: { backgroundColor: '#0F2922', borderRadius: 10, padding: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   totalLbl: { color: '#10B981', fontSize: 12, fontWeight: '700', flex: 1 },
   totalLbl2: { color: '#94A3B8', fontSize: 10, flex: 1, marginHorizontal: 10 },

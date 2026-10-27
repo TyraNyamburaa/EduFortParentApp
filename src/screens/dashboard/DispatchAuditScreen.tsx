@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const EVENTS = [
-  { time: '10:14:32', text: 'M-Pesa Settle (QKD9201M88): KES 6,200.00 confirmed receipts into Peter Kibukosya Escrow pool.', color: THEME.colors.accentGreen },
+  { time: '10:14:32', text: 'M-Pesa Settle (QKD9201M88): KES 6,200.00 confirmed receipts into Peter Kibukosya Escrow pool.', color: THEME.colors.secondary },
   { time: '10:14:35', text: 'Digital Bursar Signature: Cryptographic seals attached to receipts #BAR-99214 & #BAR-9442.', color: THEME.colors.textDark },
   { time: '10:14:40', text: 'Carrier Dispatch Queued: Handshake established with Safaricom SMS & Meta Business Gateways.', color: THEME.colors.textDark },
   { time: '10:14:45', text: 'Delivered to 4 Channels: Grade priority payloads segregated; parent ledger records posted.', color: THEME.colors.textDark },
-  { time: '10:15:10', text: 'Ledger Reconciliation Confirmed: Baraka Academy main school accounts balanced to zero defect.', color: THEME.colors.accentGreen },
+  { time: '10:15:10', text: 'Ledger Reconciliation Confirmed: Baraka Academy main school accounts balanced to zero defect.', color: THEME.colors.secondary },
 ];
 
 export default function DispatchAuditScreen({ navigation }: any) {
@@ -28,7 +29,7 @@ export default function DispatchAuditScreen({ navigation }: any) {
           </View>
           <View style={styles.statCol}>
             <Text style={styles.statLbl}>SETTLED</Text>
-            <Text style={[styles.statVal, { color: THEME.colors.accentGreen }]}>KES 6,200</Text>
+            <Text style={[styles.statVal, { color: THEME.colors.secondary }]}>KES 6,200</Text>
             <Text style={styles.statSub}>Full Clear</Text>
           </View>
           <View style={styles.statCol}>
@@ -46,7 +47,7 @@ export default function DispatchAuditScreen({ navigation }: any) {
 
       <View style={styles.deliveryCard}>
         <View style={styles.deliveryRow}>
-          <View style={styles.deliveryIconWrap}><Text style={styles.deliveryIcon}>🏫</Text></View>
+          <View style={styles.deliveryIconWrap}><Icon name="tuition" size={20} /></View>
           <View style={styles.deliveryBody}>
             <Text style={styles.deliveryName}>Peter Kibukosya Bursar</Text>
             <Text style={styles.deliverySub}>+254 700 691 023 • WhatsApp App</Text>
@@ -60,7 +61,7 @@ export default function DispatchAuditScreen({ navigation }: any) {
 
       <View style={styles.deliveryCard}>
         <View style={styles.deliveryRow}>
-          <View style={styles.deliveryIconWrap}><Text style={styles.deliveryIcon}>👩</Text></View>
+          <View style={styles.deliveryIconWrap}><Icon name="mother" size={20} /></View>
           <View style={styles.deliveryBody}>
             <Text style={styles.deliveryName}>Tr. Mwangi (Malia - Gr 1)</Text>
             <Text style={styles.deliverySub}>+254 721 694 332 • WhatsApp</Text>
@@ -74,7 +75,7 @@ export default function DispatchAuditScreen({ navigation }: any) {
 
       <View style={styles.deliveryCard}>
         <View style={styles.deliveryRow}>
-          <View style={styles.deliveryIconWrap}><Text style={styles.deliveryIcon}>👩‍🏫</Text></View>
+          <View style={styles.deliveryIconWrap}><Icon name="teacher" size={20} /></View>
           <View style={styles.deliveryBody}>
             <Text style={styles.deliveryName}>Tr. Faith Chebet (Malkia - Gr 1)</Text>
             <Text style={styles.deliverySub}>+254 714 559 012 • WhatsApp</Text>
@@ -88,7 +89,7 @@ export default function DispatchAuditScreen({ navigation }: any) {
 
       <View style={styles.deliveryCard}>
         <View style={styles.deliveryRow}>
-          <View style={styles.deliveryIconWrap}><Text style={styles.deliveryIcon}>👨</Text></View>
+          <View style={styles.deliveryIconWrap}><Icon name="father" size={20} /></View>
           <View style={styles.deliveryBody}>
             <Text style={styles.deliveryName}>Evans Ndege (Co-Payer)</Text>
             <Text style={styles.deliverySub}>+254 737 113 224 • SMS & Web</Text>
@@ -131,13 +132,13 @@ export default function DispatchAuditScreen({ navigation }: any) {
 
       <View style={styles.gateCard}>
         <View style={styles.gateLeft}>
-          <Text style={styles.gateIcon}>🎫</Text>
+          <Icon name="pass" size={24} style={styles.gateIcon} />
           <View>
             <Text style={styles.gateTitle}>GATE CLEARANCE PASS</Text>
             <Text style={styles.gateSub}>Valid for Main Gate Check • Instant guard scanner recognition • Tap for full pass</Text>
           </View>
         </View>
-        <View style={styles.qrWrap}><Text style={styles.qrEmoji}>📷</Text></View>
+        <View style={styles.qrWrap}><Icon name="scan" size={26} /></View>
       </View>
 
       <View style={styles.sectionHead}>
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   badgeSub: { fontSize: 10, color: THEME.colors.textMuted },
   gateCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0F2922', borderRadius: 12, padding: 16, marginBottom: 24 },
   gateLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  gateIcon: { fontSize: 24, marginRight: 12, color: '#10B981' },
+  gateIcon: { marginRight: 12 },
   gateTitle: { color: '#FFF', fontSize: 13, fontWeight: '800', letterSpacing: 0.5, marginBottom: 4 },
   gateSub: { color: '#94A3B8', fontSize: 11, lineHeight: 16 },
   qrWrap: { width: 52, height: 52, borderRadius: 12, backgroundColor: '#FFF', justifyContent: 'center', alignItems: 'center' },

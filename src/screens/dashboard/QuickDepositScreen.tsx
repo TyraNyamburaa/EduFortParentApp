@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const AMOUNTS = [
   { label: 'KES 50', value: 50, popular: false },
@@ -12,7 +13,7 @@ const AMOUNTS = [
 const PAY_METHODS = [
   { id: 'mpesa', name: 'M-Pesa Express', sub: 'Direct push to 0722 ••• 419', icon: 'M', color: '#10B981', selected: false },
   { id: 'airtel', name: 'Airtel Money', sub: 'Push to 0733 ••• 812', icon: 'A', color: '#EF4444', selected: false },
-  { id: 'wallet', name: 'Wallet / Bank Transfer', sub: 'Avail. Bal: KES 450.00 • Equity Bank', icon: '🏦', color: '#3B82F6', selected: true },
+  { id: 'wallet', name: 'Wallet / Bank Transfer', sub: 'Avail. Bal: KES 450.00 • Equity Bank', icon: 'bank', color: '#3B82F6', selected: true },
 ];
 
 export default function QuickDepositScreen({ navigation }: any) {
@@ -37,7 +38,7 @@ export default function QuickDepositScreen({ navigation }: any) {
         <Text style={styles.sectionLbl}>BENEFICIARY STUDENT</Text>
         <TouchableOpacity style={styles.beneficiary}>
           <View style={styles.benefAvatar}>
-            <Text style={styles.benefAvatarTxt}>👩</Text>
+            <Text style={styles.benefAvatarTxt}><Icon name="mother" size={20} /></Text>
           </View>
           <View style={styles.benefInfo}>
             <Text style={styles.benefName}>Sarah Wanjiku (Grade 5B)</Text>
@@ -48,7 +49,7 @@ export default function QuickDepositScreen({ navigation }: any) {
 
         <View style={styles.allocRow}>
           <View style={styles.allocLeft}>
-            <Text style={styles.allocIcon}>🎯</Text>
+            <Icon name="goal" size={16} style={styles.allocIcon} />
             <Text style={styles.allocLbl}>Allocating to:</Text>
           </View>
           <Text style={styles.allocVal}>Term 2 Tuition</Text>
@@ -59,7 +60,7 @@ export default function QuickDepositScreen({ navigation }: any) {
       <View style={styles.card}>
         <View style={styles.cardTop}>
           <Text style={styles.cardTitle}>Choose Deposit Amount</Text>
-          <TouchableOpacity><Text style={styles.microSaveTxt}>⚡ Micro-save</Text></TouchableOpacity>
+          <TouchableOpacity><View style={styles.microSaveRow}><Icon name="bolt" size={12} /><Text style={styles.microSaveTxt}> Micro-save</Text></View></TouchableOpacity>
         </View>
         <View style={styles.amtGrid}>
           {AMOUNTS.map((a, i) => (
@@ -70,7 +71,7 @@ export default function QuickDepositScreen({ navigation }: any) {
             >
               {a.popular && <Text style={styles.popularTxt}>POPULAR</Text>}
               <Text style={[styles.amtBtnTxt, a.selected && styles.amtBtnActiveTxt]}>{a.label}</Text>
-              {a.selected && <Text style={styles.selectedCheck}>✓ Selected</Text>}
+            <View style={styles.selectedRow}><Icon name="check" size={10} /><Text style={styles.selectedCheckTxt}> Selected</Text></View>
             </TouchableOpacity>
           ))}
         </View>
@@ -84,10 +85,10 @@ export default function QuickDepositScreen({ navigation }: any) {
             onChangeText={setCustomAmt}
             keyboardType="number-pad"
           />
-          <TouchableOpacity><Text style={styles.clearTxt}>✕</Text></TouchableOpacity>
+          <TouchableOpacity><Icon name="close" size={16} style={styles.clearTxt} /></TouchableOpacity>
         </View>
         <View style={styles.noteRow}>
-          <Text style={styles.noteIcon}>ℹ️</Text>
+          <Icon name="info" size={14} style={styles.noteIcon} />
           <Text style={styles.noteTxt}>Minimum deposit is KES 10. No transaction fee applies for deposits under KES 100.</Text>
         </View>
       </View>
@@ -116,7 +117,7 @@ export default function QuickDepositScreen({ navigation }: any) {
       <View style={styles.card}>
         <View style={styles.habitRow}>
           <View style={styles.habitInfo}>
-            <Text style={styles.habitIcon}>🔄</Text>
+            <Icon name="sync" size={20} style={styles.habitIcon} />
             <View>
               <Text style={styles.habitTitle}>Daily Micro-Save Habit</Text>
               <Text style={styles.habitSub}>Repeat this deposit every day at 7:00 PM automatically.</Text>
@@ -131,7 +132,7 @@ export default function QuickDepositScreen({ navigation }: any) {
       </View>
 
       <View style={styles.secRow}>
-        <Text style={styles.secIcon}>🛡️</Text>
+        <Icon name="shield" size={16} style={styles.secIcon} />
         <Text style={styles.secTxt}>Secured with 256-bit encryption. Funds held in trust with Central Bank of Kenya regulated custodial partner.</Text>
       </View>
 
@@ -165,6 +166,7 @@ const styles = StyleSheet.create({
   allocLbl: { fontSize: 13, color: THEME.colors.textMuted },
   allocVal: { fontSize: 13, fontWeight: '700', color: THEME.colors.textDark, marginRight: 10 },
   changeTxt: { fontSize: 13, color: THEME.colors.primary, fontWeight: '600' },
+  microSaveRow: { flexDirection: 'row', alignItems: 'center' },
   microSaveTxt: { fontSize: 12, color: THEME.colors.primary, fontWeight: '600' },
   amtGrid: { flexDirection: 'row', gap: 8, marginBottom: 20 },
   amtBtn: { flex: 1, backgroundColor: '#F8FAFC', borderRadius: 10, padding: 12, alignItems: 'center', borderWidth: 1, borderColor: THEME.colors.border, position: 'relative' },
@@ -172,14 +174,15 @@ const styles = StyleSheet.create({
   popularTxt: { fontSize: 9, color: THEME.colors.textMuted, fontWeight: '700', position: 'absolute', top: 6, left: 8 },
   amtBtnTxt: { fontSize: 13, fontWeight: '700', color: THEME.colors.textDark, marginTop: 6 },
   amtBtnActiveTxt: { color: '#0F2922' },
-  selectedCheck: { fontSize: 9, color: '#0F2922', fontWeight: '700', marginTop: 4 },
+  selectedRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 4 },
+  selectedCheckTxt: { fontSize: 9, color: '#0F2922', fontWeight: '700' },
   customLbl: { fontSize: 13, color: THEME.colors.textMuted, marginBottom: 8 },
   customRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F8FAFC', borderRadius: 10, paddingHorizontal: 14, marginBottom: 12, borderWidth: 1, borderColor: THEME.colors.border },
   keLbl: { fontSize: 18, fontWeight: '700', color: THEME.colors.textMuted, marginRight: 8 },
   customInput: { flex: 1, fontSize: 24, fontWeight: '800', color: THEME.colors.textDark },
-  clearTxt: { fontSize: 16, color: THEME.colors.textMuted },
+  clearTxt: { alignSelf: 'center' },
   noteRow: { flexDirection: 'row', alignItems: 'flex-start' },
-  noteIcon: { fontSize: 14, marginRight: 6, color: THEME.colors.textMuted },
+  noteIcon: { marginRight: 6, marginTop: 1 },
   noteTxt: { flex: 1, fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
   stkTxt: { fontSize: 12, color: '#059669', fontWeight: '600' },
   methodRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#F1F5F9' },
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
   toggleThumb: { width: 24, height: 24, borderRadius: 12, backgroundColor: '#FFF' },
   toggleThumbOn: { transform: [{ translateX: 20 }] },
   secRow: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: '#F0FDF4', padding: 12, borderRadius: 10, marginBottom: 16 },
-  secIcon: { fontSize: 16, marginRight: 8, color: THEME.colors.accentGreen },
+  secIcon: { marginRight: 8, marginTop: 1 },
   secTxt: { flex: 1, fontSize: 11, color: '#065F46', lineHeight: 16 },
   depositBtn: { backgroundColor: THEME.colors.primary, padding: 18, borderRadius: THEME.radius.button, alignItems: 'center', marginBottom: 12 },
   depositBtnTxt: { color: '#FFF', fontSize: 16, fontWeight: '700' },

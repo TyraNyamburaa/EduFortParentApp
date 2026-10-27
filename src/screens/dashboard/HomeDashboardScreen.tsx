@@ -1,561 +1,439 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-} from "react-native";
+import React, { useMemo, useState } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 import { THEME } from "../../constants/theme";
 import { useDashboardData } from "../../hooks/useDashboardData";
+import Icon from "../../components/Icon";
+import {
+  AnimatedRing,
+  CountUp,
+  PressableScale,
+  StreakIntro,
+  DashboardSkeleton,
+} from "../../components/motion";
+import CelebrationOverlay from "../../components/CelebrationOverlay";
+
+// Per-child accent colors so multi-child households scan instantly
+const CHILD_COLORS = ["#10B981", "#F59E0B", "#3B82F6", "#8B5CF6", "#EF4444"];
 
 export default function HomeDashboardScreen({ navigation }: any) {
   const { data, isLoading, isError, refetch } = useDashboardData();
+  const [celebrate, setCelebrate] = useState(false);
+  const [celebrateName, setCelebrateName] = useState("");
+
+  const childrenList = data?.children || [];
+
+  // Compute per-child progress
+  const childStats = useMemo(() => {
+    return childrenList.map((child: any, i: number) => {
+      const items =
+        data?.ledgerItems.filter((l: any) => l.child_id === child.id) || [];
+      const due = items.reduce((a, c) => a + Number(c.amount_due), 0);
+      const paid = items.reduce((a, c) => a + Number(c.amount_paid), 0);
+      const pct = due > 0 ? Math.round((paid / due) * 100) : 0;
+      return {
+        ...child,
+        due,
+        paid,
+        pct,
+        color: CHILD_COLORS[i % CHILD_COLORS.length],
+        complete: due > 0 && paid >= due,
+      };
+    });
+  }, [data]);
+
+  // Fire the celebration when a child becomes fully funded (render-triggered one-shot)
+  const doneChild = childStats.find((c: any) => c.complete);
+  const [celebratedFor, setCelebratedFor] = useState<string | null>(null);
+  if (doneChild && celebratedFor !== doneChild.full_name) {
+    setCelebratedFor(doneChild.full_name);
+    setCelebrateName(doneChild.full_name);
+    setCelebrate(true);
+  }
+
+  const latestTx = data?.transactions?.[0];
+  const streakDays = 6; // TODO: derive from transaction history dates
+  const [showIntro, setShowIntro] = useState(true);
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={THEME.colors.primary} />
-      </View>
+      <SafeAreaView style={styles.container}>
+        <DashboardSkeleton />
+      </SafeAreaView>
     );
   }
 
-  const aggregates = data?.aggregates || {
-    totalFamilySavings: 0,
-    totalTermFees: 0,
-    remainingBalance: 0,
-    completionPercentage: 0,
-  };
-  const childrenList = data?.children || [];
-  const transactionsList = data?.transactions || [];
+  if (isError) {
+    return (
+      <SafeAreaView style={[styles.container, styles.errorWrap]}>
+        <Icon name="warning" size={32} />
+        <Text style={styles.errorTitle}>
+          We couldn&apos;t load your dashboard
+        </Text>
+        <Text style={styles.errorSub}>
+          Check your connection — your savings are safe in escrow.
+        </Text>
+        <PressableScale style={styles.retryBtn} onPress={() => refetch()}>
+          <Text style={styles.retryTxt}>Try again</Text>
+        </PressableScale>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Top Navigation Row */}
-      <View style={styles.navBar}>
-        <View style={styles.profileSummaryRow}>
-          <View style={styles.avatarMini}>
-            <Text style={styles.avatarMiniTxt}>W</Text>
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarTxt}>W</Text>
           </View>
-          <View style={styles.profileTextContainer}>
-            <Text style={styles.userLabel}>EDUFORT PARENT</Text>
-            <Text style={styles.userName}>Jambo, Wanjiru</Text>
+          <View>
+            <Text style={styles.greeting}>Karibu,</Text>
+            <Text style={styles.greetingName}>Wanjiru</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.notifButton}>
-          <Text style={styles.notifIcon}>🔔</Text>
-        </TouchableOpacity>
+        <View style={styles.streakPill}>
+          <Icon name="complete" size={14} />
+          <Text style={styles.streakTxt}>{streakDays} day streak</Text>
+        </View>
       </View>
 
       <ScrollView
-        contentContainerStyle={styles.scrollContainer}
+        contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >
-        {/* Consolidated Total Family Savings Summary Panel */}
-        <View style={styles.aggregateCard}>
-          <View style={styles.cardHeaderRow}>
-            <View style={styles.badgeEnrolled}>
-              <Text style={styles.badgeEnrolledText}>
-                👥 {childrenList.length} Children Enrolled
-              </Text>
-            </View>
-            <Text style={styles.shieldText}>🛡️ Term 2 Shield</Text>
-          </View>
-
-          <Text style={styles.savingsLabel}>TOTAL FAMILY SAVINGS</Text>
-          <Text style={styles.savingsValue}>
-            KES{" "}
-            {aggregates.totalFamilySavings.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-            })}
-          </Text>
-
-          <View style={styles.financialSplitRow}>
-            <View style={styles.splitColumn}>
-              <Text style={styles.splitLabel}>Total Term Fees</Text>
-              <Text style={styles.splitValue}>
-                KES{" "}
-                {aggregates.totalTermFees.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                })}
-              </Text>
-            </View>
-            <View style={styles.splitColumnRight}>
-              <Text style={styles.splitLabel}>Remaining Balance</Text>
-              <Text style={styles.splitValueGreen}>
-                KES{" "}
-                {aggregates.remainingBalance.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                })}
-              </Text>
+        {/* ── Hero: one glance = "are my kids covered?" ─────────── */}
+        <LinearGradient colors={["#07241F", "#0D382A"]} style={styles.heroCard}>
+          <View style={styles.heroTop}>
+            <Text style={styles.heroLabel}>THIS TERM</Text>
+            <View style={styles.heroShield}>
+              <Icon name="shield" size={12} />
+              <Text style={styles.heroShieldTxt}> Protected</Text>
             </View>
           </View>
 
-          <View style={styles.progressRow}>
-            <Text style={styles.progressPercentText}>
-              {aggregates.completionPercentage.toFixed(1)}% Completed
-            </Text>
-            <Text style={styles.progressGoalText}>
-              Goal: KES {aggregates.totalTermFees.toLocaleString()}
-            </Text>
-          </View>
-          <View style={styles.progressTrack}>
-            <View
-              style={[
-                styles.progressBar,
-                { width: `${aggregates.completionPercentage}%` },
-              ]}
-            />
+          <View style={styles.heroBody}>
+            {/* Primary child gets the big animated ring */}
+            {childStats[0] && (
+              <AnimatedRing
+                progress={childStats[0].pct}
+                size={130}
+                strokeWidth={10}
+                color={childStats[0].complete ? "#34D399" : childStats[0].color}
+              >
+                <View style={styles.ringCenter}>
+                  <Text style={styles.ringPct}>{childStats[0].pct}%</Text>
+                  <Text style={styles.ringPctLabel}>secured</Text>
+                </View>
+              </AnimatedRing>
+            )}
+            <View style={styles.heroText}>
+              <Text style={styles.heroChildName}>
+                {childStats[0]?.full_name || "Your child"}
+              </Text>
+              <Text style={styles.heroStatus}>
+                {childStats[0]?.complete
+                  ? "Fully covered"
+                  : `${Math.max((childStats[0]?.due ?? 0) - (childStats[0]?.paid ?? 0), 0).toLocaleString()} KES to go`}
+              </Text>
+              {childStats[0] && !childStats[0].complete && (
+                <Text style={styles.heroEta}>
+                  {childStats[0].paid.toLocaleString()} of{" "}
+                  {childStats[0].due.toLocaleString()} KES saved
+                </Text>
+              )}
+            </View>
           </View>
 
-          <View style={styles.nudgeBanner}>
-            <Text style={styles.nudgeText}>
-              💡 You&apos;re on track for Term 2 fees! Next auto-nudge in 3 days.
-            </Text>
-          </View>
-        </View>
+          {/* Other children as compact chips */}
+          {childStats.length > 1 && (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.chipRow}
+            >
+              {childStats.slice(1).map((c: any) => (
+                <View key={c.id} style={styles.chip}>
+                  <View
+                    style={[styles.chipDot, { backgroundColor: c.color }]}
+                  />
+                  <Text style={styles.chipName} numberOfLines={1}>
+                    {c.full_name.split(" ")[0]}
+                  </Text>
+                  <Text style={styles.chipPct}>{c.pct}%</Text>
+                </View>
+              ))}
+            </ScrollView>
+          )}
 
-        {/* Quick Actions Grid Launchpad */}
-        <Text style={styles.sectionHeader}>Quick Actions</Text>
-        <View style={styles.actionGrid}>
-          <TouchableOpacity
-            style={[
-              styles.actionBtn,
-              { backgroundColor: THEME.colors.primary },
-            ]}
+          {/* The ONE primary action */}
+          <PressableScale
+            style={styles.heroCta}
+            onPress={() => navigation.navigate("QuickDeposit")}
           >
-            <Text style={styles.actionIconLight}>💳</Text>
-            <Text style={styles.actionTextLight}>Save Money</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.actionBtnSec}
+            <Icon name="bolt" size={18} />
+            <Text style={styles.heroCtaTxt}>Save for today</Text>
+          </PressableScale>
+        </LinearGradient>
+
+        {/* ── Secondary action row (2 only, rest live in tabs) ──── */}
+        <View style={styles.actionRow}>
+          <PressableScale
+            style={styles.actionBtn}
             onPress={() => navigation.navigate("ChildLedger")}
           >
-            <Text style={styles.actionIconDark}>📋</Text>
-            <Text style={styles.actionTextDark}>View Fees</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtnSec}>
-            <Text style={styles.actionIconDark}>🏳️</Text>
-            <Text style={styles.actionTextDark}>Goals</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtnSec}>
-            <Text style={styles.actionIconDark}>📊</Text>
-            <Text style={styles.actionTextDark}>History</Text>
-          </TouchableOpacity>
+            <Icon name="clipboard" size={18} />
+            <Text style={styles.actionTxt}>Fee details</Text>
+          </PressableScale>
+          <PressableScale
+            style={styles.actionBtn}
+            onPress={() => navigation.navigate("Plan")}
+          >
+            <Icon name="goal" size={18} />
+            <Text style={styles.actionTxt}>Plan term</Text>
+          </PressableScale>
         </View>
 
-        {/* Dynamic Child Wallets Card Loop */}
-        <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeaderNoMargin}>
-            Child Wallets{" "}
-            <Text style={{ fontWeight: "400", fontSize: 13, color: "#64748B" }}>
-              {childrenList.length} Active
-            </Text>
-          </Text>
-          <TouchableOpacity>
-            <Text style={styles.manageLink}>Manage ❯</Text>
-          </TouchableOpacity>
-        </View>
-
-        {childrenList.map((child: any) => {
-          // Find matching child ledger stats
-          const items =
-            data?.ledgerItems.filter((l: any) => l.child_id === child.id) || [];
-          const childDue = items.reduce(
-            (acc, curr) => acc + Number(curr.amount_due),
-            0,
-          );
-          const childPaid = items.reduce(
-            (acc, curr) => acc + Number(curr.amount_paid),
-            0,
-          );
-          const outstanding = childDue - childPaid;
-
-          return (
-            <View key={child.id} style={styles.childCard}>
-              <View style={styles.childProfileHeader}>
-                <Image
-                  source={{ uri: "https://unsplash.com" }}
-                  style={styles.childAvatar}
-                />
-                <View style={styles.childMeta}>
-                  <Text style={styles.childName}>{child.full_name}</Text>
-                  <Text style={styles.childSchool}>
-                    Grade {child.grade_class || "1"} • {child.school_name}
-                  </Text>
-                </View>
-                <View style={styles.scheduleBadge}>
-                  <Text style={styles.scheduleBadgeText}>● On Schedule</Text>
-                </View>
-              </View>
-
-              <View style={styles.walletMetricsRow}>
-                <View>
-                  <Text style={styles.metricLabel}>Progress</Text>
-                  <Text style={styles.metricValBold}>
-                    KES {childPaid.toLocaleString()}{" "}
-                    <Text style={{ fontWeight: "400", color: "#94A3B8" }}>
-                      / KES {childDue.toLocaleString()}
-                    </Text>
-                  </Text>
-                </View>
-                <View style={{ alignItems: "flex-end" }}>
-                  <Text style={styles.metricLabel}>Outstanding</Text>
-                  <Text style={styles.metricValOutstanding}>
-                    KES {outstanding.toLocaleString()}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.childCardProgressTrack}>
-                <View
-                  style={[
-                    styles.childCardProgressBar,
-                    {
-                      width: `${childDue > 0 ? (childPaid / childDue) * 100 : 0}%`,
-                    },
-                  ]}
-                />
-              </View>
-
-              <View style={styles.cardFooterActions}>
-                <Text style={styles.deadlineDays}>
-                  📅 15 July{" "}
-                  <Text style={{ fontWeight: "bold", color: "#475569" }}>
-                    (18 days left)
-                  </Text>
-                </Text>
-                <TouchableOpacity style={styles.inlineDepositBtn}>
-                  <Text style={styles.inlineDepositBtnTxt}>+ Add Deposit</Text>
-                </TouchableOpacity>
-              </View>
+        {/* ── Latest activity: ONE line, not a feed ─────────────── */}
+        {latestTx && (
+          <PressableScale style={styles.latestCard}>
+            <View style={styles.latestIcon}>
+              <Icon name="mobile" size={16} />
             </View>
-          );
-        })}
-
-        {/* Consolidated Transaction Sync Feed */}
-        <Text style={styles.sectionHeader}>Recent Micro-Savings</Text>
-        <View style={styles.feedCard}>
-          {transactionsList.map((tx: any) => (
-            <View key={tx.id} style={styles.feedRow}>
-              <View style={styles.feedIconSquare}>
-                <Text style={{ fontSize: 16 }}>📱</Text>
-              </View>
-              <View style={styles.feedMeta}>
-                <Text style={styles.feedTitle}>
-                  {tx.type === "FEE_PAYMENT"
-                    ? "Malia • Tuition"
-                    : "Savings Allocation"}
-                </Text>
-                <Text style={styles.feedSub}>Today • M-Pesa Direct</Text>
-              </View>
-              <View style={styles.feedFin}>
-                <Text style={styles.feedAmount}>
-                  + KES {Number(tx.amount).toLocaleString()}
-                </Text>
-                <Text style={styles.feedStatus}>Confirmed</Text>
-              </View>
+            <View style={styles.latestMeta}>
+              <Text style={styles.latestTitle}>
+                {latestTx.type === "FEE_PAYMENT"
+                  ? "Fee payment"
+                  : "Savings deposit"}{" "}
+                · today
+              </Text>
+              <Text style={styles.latestSub}>M-Pesa · confirmed</Text>
             </View>
-          ))}
-          <TouchableOpacity style={styles.viewAllBtn}>
-            <Text style={styles.viewAllBtnText}>View All Transactions ❯</Text>
-          </TouchableOpacity>
-        </View>
+            <CountUp
+              value={Number(latestTx.amount)}
+              prefix="+ "
+              style={styles.latestAmount}
+            />
+          </PressableScale>
+        )}
 
-        {/* Tip Banner Element */}
-        <View style={styles.tipCard}>
-          <Text style={styles.tipTitle}>
-            💡 Parent Tip: Shilling by Shilling
-          </Text>
-          <Text style={styles.tipBody}>
-            Saving just KES 100 per day covers the outstanding term balance well
-            before the deadline. You&apos;ve got this!
+        {/* ── Milestone / encouragement strip ───────────────────── */}
+        <View style={styles.tipStrip}>
+          <Icon name="tip" size={14} />
+          <Text style={styles.tipTxt} numberOfLines={2}>
+            KES 100/day clears the term balance before the deadline. You&apos;ve
+            got this!
           </Text>
         </View>
       </ScrollView>
+
+      <CelebrationOverlay
+        visible={celebrate}
+        childName={celebrateName}
+        onClose={() => setCelebrate(false)}
+      />
+
+      {/* One-shot streak intro: big on entry, shrinks into the header pill */}
+      {showIntro && streakDays > 0 && (
+        <StreakIntro days={streakDays} onFinish={() => setShowIntro(false)} />
+      )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8FAFC" },
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  navBar: {
+  container: { flex: 1, backgroundColor: "#FAF7F0" },
+  errorWrap: { justifyContent: "center", alignItems: "center", padding: 32 },
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: THEME.colors.textDark,
+    marginTop: 16,
+    textAlign: "center",
+  },
+  errorSub: {
+    fontSize: 14,
+    color: THEME.colors.textMuted,
+    marginTop: 8,
+    textAlign: "center",
+    lineHeight: 20,
+  },
+  retryBtn: {
+    backgroundColor: THEME.colors.primary,
+    paddingHorizontal: 32,
+    paddingVertical: 14,
+    borderRadius: 14,
+    marginTop: 24,
+  },
+  retryTxt: { color: "#FFF", fontSize: 15, fontWeight: "700" },
+
+  // Header
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 24,
     paddingVertical: 16,
-    backgroundColor: "#FFFFFF",
-    borderBottomWidth: 1,
-    borderColor: "#F1F5F9",
   },
-  profileSummaryRow: { flexDirection: "row", alignItems: "center" },
-  avatarMini: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: "#005F4B",
+  headerLeft: { flexDirection: "row", alignItems: "center" },
+  avatar: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: THEME.colors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
-  avatarMiniTxt: { color: "#FFFFFF", fontWeight: "bold", fontSize: 14 },
-  profileTextContainer: { marginLeft: 10 },
-  userLabel: { fontSize: 10, fontWeight: "700", color: "#94A3B8" },
-  userName: { fontSize: 16, fontWeight: "700", color: "#1E293B" },
-  notifButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: "#F1F5F9",
-    justifyContent: "center",
-    alignItems: "center",
+  avatarTxt: { color: "#FFF", fontWeight: "700", fontSize: 16 },
+  greeting: { fontSize: 12, color: THEME.colors.textMuted, marginLeft: 10 },
+  greetingName: {
+    fontSize: 17,
+    fontWeight: "800",
+    color: THEME.colors.textDark,
+    marginLeft: 10,
   },
-  notifIcon: { fontSize: 16 },
-  scrollContainer: { paddingBottom: 32 },
-  aggregateCard: {
-    backgroundColor: "#07241F",
-    margin: 20,
-    padding: 20,
+  streakPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: THEME.colors.secondarySoft,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 20,
+    gap: 6,
   },
-  cardHeaderRow: {
+  streakTxt: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: THEME.colors.primary,
+  },
+
+  scroll: { paddingBottom: 32 },
+
+  // Hero
+  heroCard: {
+    marginHorizontal: 20,
+    borderRadius: 24,
+    padding: 20,
+  },
+  heroTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  badgeEnrolled: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  badgeEnrolledText: { color: "#FFFFFF", fontSize: 11, fontWeight: "600" },
-  shieldText: { color: "#34D399", fontSize: 12, fontWeight: "600" },
-  savingsLabel: {
+  heroLabel: {
     color: "#94A3B8",
     fontSize: 11,
-    fontWeight: "700",
-    marginTop: 20,
-  },
-  savingsValue: {
-    color: "#FFFFFF",
-    fontSize: 28,
     fontWeight: "800",
-    marginTop: 4,
+    letterSpacing: 1.5,
   },
-  financialSplitRow: {
+  heroShield: { flexDirection: "row", alignItems: "center" },
+  heroShieldTxt: { color: "#34D399", fontSize: 11, fontWeight: "600" },
+  heroBody: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 16,
-    borderTopWidth: 1,
-    borderColor: "rgba(255,255,255,0.08)",
-    paddingTop: 16,
+    gap: 18,
   },
-  splitColumn: { flex: 1 },
-  splitColumnRight: { flex: 1, alignItems: "flex-end" },
-  splitLabel: { color: "#64748B", fontSize: 12 },
-  splitValue: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "600",
-    marginTop: 2,
-  },
-  splitValueGreen: {
+  ringCenter: { alignItems: "center" },
+  ringPct: { color: "#FFF", fontSize: 28, fontWeight: "800" },
+  ringPctLabel: { color: "#64748B", fontSize: 11, marginTop: 2 },
+  heroText: { flex: 1 },
+  heroChildName: { color: "#FFF", fontSize: 20, fontWeight: "800" },
+  heroStatus: {
     color: "#34D399",
     fontSize: 14,
     fontWeight: "600",
-    marginTop: 2,
+    marginTop: 6,
   },
-  progressRow: {
+  heroEta: { color: "#94A3B8", fontSize: 12, marginTop: 4 },
+  chipRow: { marginTop: 16 },
+  chip: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  progressPercentText: { color: "#34D399", fontSize: 12, fontWeight: "600" },
-  progressGoalText: { color: "#64748B", fontSize: 12 },
-  progressTrack: {
-    height: 6,
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 3,
-    marginTop: 8,
-    overflow: "hidden",
-  },
-  progressBar: { height: "100%", backgroundColor: "#34D399" },
-  nudgeBanner: {
-    backgroundColor: "rgba(52, 211, 153, 0.08)",
-    padding: 12,
-    borderRadius: 10,
-    marginTop: 16,
-  },
-  nudgeText: { color: "#34D399", fontSize: 12, lineHeight: 16 },
-  sectionHeader: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#1E293B",
-    marginHorizontal: 24,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  sectionHeaderNoMargin: { fontSize: 16, fontWeight: "700", color: "#1E293B" },
-  sectionHeaderRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 24,
-    marginTop: 12,
-    marginBottom: 12,
+    backgroundColor: "rgba(255,255,255,0.08)",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 8,
+    gap: 6,
   },
-  manageLink: { color: "#005F4B", fontSize: 13, fontWeight: "600" },
-  actionGrid: {
+  chipDot: { width: 8, height: 8, borderRadius: 4 },
+  chipName: { color: "#FFF", fontSize: 12, fontWeight: "600", maxWidth: 80 },
+  chipPct: { color: "#94A3B8", fontSize: 12, fontWeight: "700" },
+  heroCta: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    backgroundColor: "#10B981",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 16,
+    borderRadius: 16,
+    marginTop: 20,
+    gap: 8,
+  },
+  heroCtaTxt: { color: "#FFF", fontSize: 16, fontWeight: "800" },
+
+  // Action row
+  actionRow: {
+    flexDirection: "row",
     paddingHorizontal: 20,
+    gap: 12,
+    marginTop: 16,
   },
   actionBtn: {
-    width: "23%",
-    paddingVertical: 14,
-    borderRadius: 12,
+    flex: 1,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  actionBtnSec: {
-    width: "23%",
-    paddingVertical: 14,
-    borderRadius: 12,
     backgroundColor: "#FFFFFF",
+    paddingVertical: 14,
+    borderRadius: 14,
+    gap: 8,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderColor: "#EDE7DA",
+  },
+  actionTxt: { fontSize: 14, fontWeight: "600", color: THEME.colors.textDark },
+
+  // Latest activity
+  latestCard: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-  },
-  actionIconLight: { fontSize: 18, color: "#FFFFFF" },
-  actionTextLight: {
-    color: "#FFFFFF",
-    fontSize: 11,
-    fontWeight: "600",
-    marginTop: 6,
-    textAlign: "center",
-  },
-  actionIconDark: { fontSize: 18, color: "#07241F" },
-  actionTextDark: {
-    color: "#07241F",
-    fontSize: 11,
-    fontWeight: "600",
-    marginTop: 6,
-    textAlign: "center",
-  },
-  childCard: {
     backgroundColor: "#FFFFFF",
     marginHorizontal: 20,
-    marginBottom: 16,
+    marginTop: 16,
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderColor: "#EDE7DA",
   },
-  childProfileHeader: { flexDirection: "row", alignItems: "center" },
-  childAvatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#CBD5E1",
-  },
-  childMeta: { flex: 1, marginLeft: 12 },
-  childName: { fontSize: 16, fontWeight: "700", color: "#1E293B" },
-  childSchool: { fontSize: 12, color: "#64748B", marginTop: 2 },
-  scheduleBadge: {
-    backgroundColor: "#CCFBF1",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+  latestIcon: {
+    width: 40,
+    height: 40,
     borderRadius: 12,
-  },
-  scheduleBadgeText: { color: "#0F766E", fontSize: 11, fontWeight: "700" },
-  walletMetricsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 16,
-  },
-  metricLabel: { fontSize: 12, color: "#64748B" },
-  metricValBold: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#1E293B",
-    marginTop: 2,
-  },
-  metricValOutstanding: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#0F766E",
-    marginTop: 2,
-  },
-  childCardProgressTrack: {
-    height: 6,
-    backgroundColor: "#F1F5F9",
-    borderRadius: 3,
-    marginTop: 12,
-    overflow: "hidden",
-  },
-  childCardProgressBar: { height: "100%", backgroundColor: "#005F4B" },
-  cardFooterActions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 16,
-    borderTopWidth: 1,
-    borderColor: "#F1F5F9",
-    paddingTop: 12,
-  },
-  deadlineDays: { fontSize: 13, color: "#64748B" },
-  inlineDepositBtn: {
-    backgroundColor: "#005F4B",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 8,
-  },
-  inlineDepositBtnTxt: { color: "#FFFFFF", fontSize: 13, fontWeight: "600" },
-  feedCard: {
-    backgroundColor: "#FFFFFF",
-    marginHorizontal: 20,
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-  },
-  feedRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: "#F1F5F9",
-  },
-  feedIconSquare: {
-    width: 36,
-    height: 36,
-    borderRadius: 8,
     backgroundColor: "#E0F2FE",
     alignItems: "center",
     justifyContent: "center",
   },
-  feedMeta: { flex: 1, marginLeft: 12 },
-  feedTitle: { fontSize: 14, fontWeight: "600", color: "#1E293B" },
-  feedSub: { fontSize: 12, color: "#94A3B8", marginTop: 2 },
-  feedFin: { alignItems: "flex-end" },
-  feedAmount: { fontSize: 14, fontWeight: "700", color: "#16A34A" },
-  feedStatus: { fontSize: 11, color: "#94A3B8", marginTop: 2 },
-  viewAllBtn: { alignItems: "center", paddingTop: 14 },
-  viewAllBtnText: { color: "#005F4B", fontSize: 13, fontWeight: "600" },
-  tipCard: {
-    backgroundColor: "#EFF6FF",
-    margin: 20,
-    padding: 16,
-    borderRadius: 12,
-    borderLeftWidth: 4,
-    borderColor: "#2563EB",
+  latestMeta: { flex: 1, marginLeft: 12 },
+  latestTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: THEME.colors.textDark,
   },
-  tipTitle: { fontSize: 14, fontWeight: "700", color: "#1E40AF" },
-  tipBody: { fontSize: 13, color: "#1E3A8A", marginTop: 4, lineHeight: 18 },
+  latestSub: { fontSize: 12, color: THEME.colors.textMuted, marginTop: 2 },
+  latestAmount: { fontSize: 15, fontWeight: "800", color: "#16A34A" },
+
+  // Tip strip
+  tipStrip: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginTop: 16,
+    padding: 14,
+    borderRadius: 14,
+    backgroundColor: "#EFF6FF",
+    gap: 10,
+  },
+  tipTxt: { flex: 1, fontSize: 12, color: "#1E40AF", lineHeight: 17 },
 });

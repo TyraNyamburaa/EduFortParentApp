@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, Alert, ActivityIndicator } from 'react-native';
 import { THEME } from '../../constants/theme';
 import { supabase } from '../../utils/supabase';
+import Icon from '../../components/Icon';
 
 export default function AddChildScreen({ navigation }: any) {
   const [childName, setChildName] = useState('');
@@ -143,7 +144,7 @@ export default function AddChildScreen({ navigation }: any) {
 
         {/* Sync Guarantee Assurance Card */}
         <View style={styles.syncCard}>
-          <Text style={styles.syncTitle}>🔄 Real-time Bursar Sync</Text>
+          <Text style={styles.syncTitle}><Icon name="sync" size={14} /> Real-time Bursar Sync</Text>
           <Text style={styles.syncBody}>
             EduFort establishes a secure link directly to verified ledger records to avoid tracking discrepancies.
           </Text>

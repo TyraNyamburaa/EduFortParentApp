@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon, { IconName } from '../../components/Icon';
 
-const FEE_ITEMS = [
-  { name: 'Tuition Fees', total: 12000, paid: 10000, icon: '🎓', color: '#005F4B' },
-  { name: 'School Lunch Program', total: 4500, paid: 3000, icon: '🍽️', color: '#10B981' },
-  { name: 'Transport Service', total: 3500, paid: 1500, icon: '🚌', color: '#3B82F6' },
-  { name: 'Uniform & Sports Kit', total: 2500, paid: 0, icon: '👕', color: '#F59E0B' },
-  { name: 'Term 2 Exam Fees', total: 1500, paid: 0, icon: '📝', color: '#EF4444' },
-  { name: 'Activities & Clubs', total: 1000, paid: 0, icon: '⚽', color: '#8B5CF6' },
+const FEE_ITEMS: { name: string; total: number; paid: number; icon: IconName; color: string }[] = [
+  { name: 'Tuition Fees', total: 12000, paid: 10000, icon: 'tuition', color: '#005F4B' },
+  { name: 'School Lunch Program', total: 4500, paid: 3000, icon: 'lunch', color: '#10B981' },
+  { name: 'Transport Service', total: 3500, paid: 1500, icon: 'transport', color: '#3B82F6' },
+  { name: 'Uniform & Sports Kit', total: 2500, paid: 0, icon: 'uniform', color: '#F59E0B' },
+  { name: 'Term 2 Exam Fees', total: 1500, paid: 0, icon: 'exam', color: '#EF4444' },
+  { name: 'Activities & Clubs', total: 1000, paid: 0, icon: 'activities', color: '#8B5CF6' },
 ];
 
 export default function ChildLedgerScreen({ navigation }: any) {
@@ -34,16 +35,16 @@ export default function ChildLedgerScreen({ navigation }: any) {
         </View>
 
         <View style={styles.schoolRow}>
-          <Text style={styles.schoolIcon}>🏫</Text>
+          <Icon name="tuition" size={14} style={styles.schoolIcon} />
           <Text style={styles.schoolName}>Baraka Academy & Primary</Text>
           <View style={styles.partnerBadge}>
-            <Text style={styles.partnerTxt}>⚙️ Partner</Text>
+            <Text style={styles.partnerTxt}><Icon name="settings" size={11} /> Partner</Text>
           </View>
         </View>
 
         <View style={styles.termRow}>
           <Text style={styles.termText}>Term 2, 2025</Text>
-          <Text style={styles.daysLeft}>⏰ 18 days left (15 Jul)</Text>
+          <Text style={styles.daysLeft}><Icon name="clock" size={12} /> 18 days left (15 Jul)</Text>
         </View>
       </View>
 
@@ -83,7 +84,7 @@ export default function ChildLedgerScreen({ navigation }: any) {
         return (
           <View key={idx} style={styles.feeItem}>
             <View style={styles.feeTop}>
-              <View style={styles.feeIconWrap}><Text style={styles.feeIcon}>{item.icon}</Text></View>
+              <View style={styles.feeIconWrap}><Icon name={item.icon} size={18} /></View>
               <Text style={styles.feeName}>{item.name}</Text>
               <Text style={styles.feeAmt}>KES {item.paid.toLocaleString()}</Text>
               <Text style={styles.feeDrop}>▾</Text>
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
   feeDrop: { fontSize: 12, color: THEME.colors.textMuted },
   feeMeta: { flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap' },
   feeTotal: { fontSize: 12, color: THEME.colors.textMuted, marginRight: 10 },
-  feePct: { fontSize: 12, color: THEME.colors.accentGreen, fontWeight: '700', marginRight: 10 },
+  feePct: { fontSize: 12, color: THEME.colors.secondary, fontWeight: '700', marginRight: 10 },
   feeLeft: { fontSize: 12, color: '#D97706', fontWeight: '600' },
   feeUnpaid: { fontSize: 12, color: THEME.colors.textMuted, fontStyle: 'italic' },
   syncCard: { backgroundColor: '#EFF6FF', borderRadius: 12, padding: 14, flexDirection: 'row', alignItems: 'flex-start', marginBottom: 16, borderLeftWidth: 4, borderLeftColor: '#2563EB' },

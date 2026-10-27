@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from '../../components/Icon';
 import { THEME } from '../../constants/theme';
 
 export default function SplashScreen({ navigation }: any) {
@@ -35,8 +36,8 @@ export default function SplashScreen({ navigation }: any) {
           <View style={styles.goalCard}>
             <View style={styles.cardHeaderRow}>
               <View style={styles.iconAndTitle}>
-                <View style={styles.iconCircle}>
-                  <Text style={styles.academicIcon}>🎓</Text>
+                <View style={styles.academicIconCircle}>
+                  <Icon name="tuition" size={16} />
                 </View>
                 <View style={styles.titleColumn}>
                   <Text style={styles.goalTitle}>Term 1 Goal</Text>
@@ -64,7 +65,7 @@ export default function SplashScreen({ navigation }: any) {
 
         {/* Regulatory Central Bank Legal Attributions Grid Panel */}
         <View style={styles.legalFooter}>
-          <Text style={styles.legalHeader}>🛡️ Central Bank of Kenya Custodial Framework</Text>
+          <Text style={styles.legalHeader}><Icon name="shield" size={14} /> Central Bank of Kenya Custodial Framework</Text>
           <Text style={styles.legalSubDetails}>
             Regulated custodial savings partner • 100% principal protected
           </Text>
@@ -85,8 +86,7 @@ const styles = StyleSheet.create({
   goalCard: { backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.08)', padding: 18, width: '100%' },
   cardHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   iconAndTitle: { flexDirection: 'row', alignItems: 'center' },
-  iconCircle: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(16, 185, 129, 0.15)', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  academicIcon: { fontSize: 16 },
+  academicIconCircle: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(16, 185, 129, 0.15)', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
   titleColumn: { justifyContent: 'center' },
   goalTitle: { color: '#FFFFFF', fontSize: 15, fontWeight: '600' },
   goalSubtitle: { color: '#64748B', fontSize: 12, marginTop: 2 },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const STUDENTS = [
   { id: '1', name: 'Malia Wanjiku', meta: 'Grade 1 Emerald • Adm: ADM-2022-841', school: 'Peter Kibukosya Primary School', status: 'Bursar Stamped • Exam Clear', file: 'BAR-99214_Malia.pdf (184 KB)', amt: 5000, checked: true },
@@ -35,7 +36,7 @@ export default function BulkShareScreen({ navigation }: any) {
       {STUDENTS.map((s) => (
         <View key={s.id} style={styles.studentCard}>
           <View style={styles.studentLeft}>
-            <View style={styles.studentAvatar}><Text style={styles.studentAvatarTxt}>👩</Text></View>
+            <View style={styles.studentAvatar}><Icon name="mother" size={22} /></View>
             <View style={styles.studentBody}>
               <Text style={styles.studentName}>{s.name}</Text>
               <Text style={styles.studentMeta}>{s.meta}</Text>
@@ -46,7 +47,7 @@ export default function BulkShareScreen({ navigation }: any) {
           </View>
           <View style={styles.studentRight}>
             <Text style={styles.studentAmt}>KES {s.amt.toLocaleString()}</Text>
-            <View style={styles.checkBadge}><Text style={styles.checkTxt}>✓</Text></View>
+            <View style={styles.checkBadge}><Icon name="check" size={14} /></View>
           </View>
         </View>
       ))}
@@ -56,17 +57,17 @@ export default function BulkShareScreen({ navigation }: any) {
       </View>
       <View style={styles.channelRow}>
         <TouchableOpacity style={[styles.channelBtn, styles.channelBtnActive]}>
-          <Text style={styles.channelIcon}>💬</Text>
+          <Icon name="chat" size={20} style={styles.channelIcon} />
           <Text style={styles.channelLblActive}>WhatsApp</Text>
           <Text style={styles.channelSub}>Instant PDF</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.channelBtn}>
-          <Text style={styles.channelIcon}>🔗</Text>
+          <Icon name="link" size={20} style={styles.channelIcon} />
           <Text style={styles.channelLbl}>SMS Link</Text>
           <Text style={styles.channelSub}>Low Data</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.channelBtn}>
-          <Text style={styles.channelIcon}>📧</Text>
+          <Icon name="email" size={20} style={styles.channelIcon} />
           <Text style={styles.channelLbl}>Email ZIP</Text>
           <Text style={styles.channelSub}>Formal Copy</Text>
         </TouchableOpacity>
@@ -79,7 +80,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.recipientCard}>
         <View style={styles.recipientTop}>
-          <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>🏫</Text></View>
+          <View style={styles.recipientIconWrap}><Icon name="tuition" size={20} /></View>
           <View style={styles.recipientBody}>
             <Text style={styles.recipientName}>Baraka Academy Bursar</Text>
             <Text style={styles.recipientSub}>+254 700 691 023 • Central Accounts</Text>
@@ -93,7 +94,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.recipientCard}>
         <View style={styles.recipientTop}>
-          <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>👩</Text></View>
+          <View style={styles.recipientIconWrap}><Icon name="mother" size={20} /></View>
           <View style={styles.recipientBody}>
             <Text style={styles.recipientName}>Tr. Mwangi</Text>
             <Text style={styles.recipientSub}>+254 721 694 332 • Grade 1 Emerald Head</Text>
@@ -106,7 +107,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.recipientCard}>
         <View style={styles.recipientTop}>
-          <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>👩‍🏫</Text></View>
+          <View style={styles.recipientIconWrap}><Icon name="teacher" size={20} /></View>
           <View style={styles.recipientBody}>
             <Text style={styles.recipientName}>Tr. Faith Chebet</Text>
             <Text style={styles.recipientSub}>+254 714 559 012 • Grade 1 Blue Rep</Text>
@@ -119,7 +120,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.recipientCard}>
         <View style={styles.recipientTop}>
-          <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>👨</Text></View>
+          <View style={styles.recipientIconWrap}><Icon name="father" size={20} /></View>
           <View style={styles.recipientBody}>
             <Text style={styles.recipientName}>Evans Ndege Nduathi (Father)</Text>
             <Text style={styles.recipientSub}>+254 737 113 224 • Full Household Copy</Text>
@@ -132,7 +133,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.recipientCard}>
         <View style={styles.recipientTop}>
-          <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>💬</Text></View>
+          <View style={styles.recipientIconWrap}><Icon name="chat" size={20} /></View>
           <View style={styles.recipientBody}>
             <Text style={styles.recipientName}>Winfrida Mwangi (Self Vault)</Text>
             <Text style={styles.recipientSub}>+254 722 ••• 419 • Cloud Archive</Text>
@@ -150,7 +151,7 @@ export default function BulkShareScreen({ navigation }: any) {
           <Text style={styles.prefTitle}>Auto-Split Delivery (Privacy Filter)</Text>
           <Text style={styles.prefSub}>Class teachers only view their own student&apos;s record</Text>
         </View>
-        <Switch value={autoSplit} onValueChange={setAutoSplit} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={autoSplit ? THEME.colors.accentGreen : '#FFF'} />
+        <Switch value={autoSplit} onValueChange={setAutoSplit} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={autoSplit ? THEME.colors.secondary : '#FFF'} />
       </View>
 
       <View style={styles.prefRow}>
@@ -158,7 +159,7 @@ export default function BulkShareScreen({ navigation }: any) {
           <Text style={styles.prefTitle}>Instant Bursar Gate Stamp Push</Text>
           <Text style={styles.prefSub}>Requests electronic gate clearance ping</Text>
         </View>
-        <Switch value={gatePush} onValueChange={setGatePush} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={gatePush ? THEME.colors.accentGreen : '#FFF'} />
+        <Switch value={gatePush} onValueChange={setGatePush} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={gatePush ? THEME.colors.secondary : '#FFF'} />
       </View>
 
       <View style={styles.sectionHead}>
@@ -181,8 +182,8 @@ export default function BulkShareScreen({ navigation }: any) {
           <Text style={styles.previewBullet}>2. Malkia Nyawira (Grade 1 Blue) • Ref #BAR-9442 KES 1,200.00 (CBC Kit • Cleared)</Text>
         </View>
         <Text style={styles.previewBody}>Combined M-Pesa Settle: KES 6,200.00. Both digital clearance certificates are signed, instant-stamped, and attached with tamper-proof CBK Escrow hash.</Text>
-        <View style={styles.previewAttach}><Text style={styles.previewAttachTxt}>📎 Attached: 2 Signed PDFs (694 KB)</Text></View>
-        <View style={styles.previewCheckRow}><Text style={styles.previewCheck}>✓</Text></View>
+        <View style={styles.previewAttachRow}><Icon name="attach" size={12} /><Text style={styles.previewAttachTxt}> Attached: 2 Signed PDFs (694 KB)</Text></View>
+        <View style={styles.previewCheckRow}><Icon name="check" size={14} /></View>
       </View>
 
       <Text style={styles.appendLbl}>Quick Notes to Append:</Text>
@@ -194,7 +195,7 @@ export default function BulkShareScreen({ navigation }: any) {
 
       <View style={styles.trustRow}>
         <View style={styles.trustLeft}>
-          <Text style={styles.trustIcon}>🛡️</Text>
+          <Icon name="shield" size={20} style={styles.trustIcon} />
           <View>
             <Text style={styles.trustTitle}>Tamper-Proof Escrow Seal</Text>
             <Text style={styles.trustSub}>QR Code embedded on both receipts for instant school barcode scanning</Text>
@@ -239,11 +240,11 @@ const styles = StyleSheet.create({
   studentName: { fontSize: 15, fontWeight: '700', color: THEME.colors.textDark, marginBottom: 3 },
   studentMeta: { fontSize: 11, color: THEME.colors.textMuted, marginTop: 2 },
   studentSchool: { fontSize: 11, color: THEME.colors.textMuted, marginTop: 2 },
-  studentStatus: { fontSize: 10, color: THEME.colors.accentGreen, fontWeight: '600', marginTop: 3 },
+  studentStatus: { fontSize: 10, color: THEME.colors.secondary, fontWeight: '600', marginTop: 3 },
   studentFile: { fontSize: 10, color: THEME.colors.textMuted, marginTop: 2 },
   studentRight: { alignItems: 'flex-end', marginLeft: 12 },
   studentAmt: { fontSize: 15, fontWeight: '800', color: THEME.colors.textDark, marginBottom: 6 },
-  checkBadge: { width: 28, height: 28, borderRadius: 14, backgroundColor: THEME.colors.accentGreen, justifyContent: 'center', alignItems: 'center' },
+  checkBadge: { width: 28, height: 28, borderRadius: 14, backgroundColor: THEME.colors.secondary, justifyContent: 'center', alignItems: 'center' },
   checkTxt: { color: '#FFF', fontSize: 14, fontWeight: '700' },
   channelRow: { flexDirection: 'row', gap: 8, marginBottom: 24 },
   channelBtn: { flex: 1, backgroundColor: THEME.colors.cardBackground, borderRadius: 12, padding: 14, alignItems: 'center', elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
@@ -280,10 +281,10 @@ const styles = StyleSheet.create({
   previewBody: { fontSize: 13, color: THEME.colors.textMuted, lineHeight: 18, marginBottom: 8 },
   previewBullets: { marginBottom: 8 },
   previewBullet: { fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
-  previewAttach: { backgroundColor: '#D1FAE5', padding: 8, borderRadius: 8, marginBottom: 8 },
+  previewAttachRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#D1FAE5', padding: 8, borderRadius: 8, marginBottom: 8 },
   previewAttachTxt: { fontSize: 11, color: '#065F46', fontWeight: '600' },
   previewCheckRow: { flexDirection: 'row', justifyContent: 'flex-end' },
-  previewCheck: { fontSize: 14, color: THEME.colors.accentGreen, fontWeight: '700' },
+  previewCheck: { fontSize: 14, color: THEME.colors.secondary, fontWeight: '700' },
   appendLbl: { fontSize: 13, color: THEME.colors.textMuted, marginBottom: 10 },
   appendRow: { flexDirection: 'row', gap: 8, marginBottom: 20 },
   appendBtn: { backgroundColor: THEME.colors.cardBackground, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 20, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Switch, TextInput } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon, { IconName } from '../../components/Icon';
 
-const RECIPIENTS = [
-  { id: 'bursar', name: 'School Bursar Desk', sub: 'Peter Kibukosya Primary • +254 700 691 223', icon: '🏫', verified: true, selected: true },
-  { id: 'teacher', name: 'Class Teacher / Grade 5 Head', sub: 'Ti Mwangi • +254 782 984 332', icon: '👩‍🏫', verified: false, selected: false },
-  { id: 'parent', name: 'Co-Parent / Sponsor', sub: 'Kamau Njau • +254 737 113 224', icon: '👨', verified: false, selected: false },
-  { id: 'vault', name: 'My Own WhatsApp Vault', sub: 'Winfrida Mwangi • +254 722 ••• 419', icon: '💬', verified: false, selected: false },
+const RECIPIENTS: { id: string; name: string; sub: string; icon: IconName; verified: boolean; selected: boolean }[] = [
+  { id: 'bursar', name: 'School Bursar Desk', sub: 'Peter Kibukosya Primary • +254 700 691 223', icon: 'school', verified: true, selected: true },
+  { id: 'teacher', name: 'Class Teacher / Grade 5 Head', sub: 'Ti Mwangi • +254 782 984 332', icon: 'teacher', verified: false, selected: false },
+  { id: 'parent', name: 'Co-Parent / Sponsor', sub: 'Kamau Njau • +254 737 113 224', icon: 'father', verified: false, selected: false },
+  { id: 'vault', name: 'My Own WhatsApp Vault', sub: 'Winfrida Mwangi • +254 722 ••• 419', icon: 'chat', verified: false, selected: false },
 ];
 
 export default function ShareReceiptScreen({ navigation }: any) {
@@ -21,7 +22,7 @@ export default function ShareReceiptScreen({ navigation }: any) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
       <View style={styles.receiptHeader}>
-        <View style={styles.receiptIconWrap}><Text style={styles.receiptIcon}>🧾</Text></View>
+        <View style={styles.receiptIconWrap}><Icon name="receipt" size={22} /></View>
         <View style={styles.receiptBody}>
           <Text style={styles.receiptTitle}>Receipt #BAR-99214</Text>
           <Text style={styles.receiptSub}>Malia Wanjiku • CBC Grade 1 (Green)</Text>
@@ -43,7 +44,7 @@ export default function ShareReceiptScreen({ navigation }: any) {
       {recipients.map((r) => (
         <TouchableOpacity key={r.id} style={styles.recipientCard} onPress={() => toggleRecipient(r.id)}>
           <View style={styles.recipientLeft}>
-            <View style={styles.recipientIconWrap}><Text style={styles.recipientIcon}>{r.icon}</Text></View>
+            <View style={styles.recipientIconWrap}><Icon name={r.icon} size={20} /></View>
             <View style={styles.recipientBody}>
               <View style={styles.recipientNameRow}>
                 <Text style={styles.recipientName}>{r.name}</Text>
@@ -61,7 +62,7 @@ export default function ShareReceiptScreen({ navigation }: any) {
       <View style={styles.phoneRow}>
         <Text style={styles.phoneLbl}>+254</Text>
         <TextInput style={styles.phoneInput} placeholder="700 000 000" placeholderTextColor={THEME.colors.textMuted} />
-        <View style={styles.phoneIconWrap}><Text style={styles.phoneIcon}>📱</Text></View>
+        <View style={styles.phoneIconWrap}><Icon name="mobile" size={16} /></View>
       </View>
 
       <View style={styles.sectionHead}>
@@ -70,7 +71,7 @@ export default function ShareReceiptScreen({ navigation }: any) {
       </View>
       <View style={styles.attachmentCard}>
         <View style={styles.attachmentLeft}>
-          <View style={styles.pdfIconWrap}><Text style={styles.pdfIcon}>📄</Text></View>
+          <View style={styles.pdfIconWrap}><Icon name="document" size={22} /></View>
           <View style={styles.attachmentBody}>
             <Text style={styles.attachmentName}>PET-99214_Malia_Wanjiku_Term2_Receipt.pdf</Text>
             <Text style={styles.attachmentSub}>364 KB • Official Stamped Bursar Copy</Text>
@@ -105,7 +106,8 @@ export default function ShareReceiptScreen({ navigation }: any) {
         </View>
         <View style={styles.previewActions}>
           <Text style={styles.previewLink}>Customize message</Text>
-          <Text style={styles.previewCheck}>✓ Double Tick Delivery</Text>
+          <Icon name="check" size={11} style={{ alignSelf: 'center' }} />
+          <Text style={styles.previewCheck}> Double Tick Delivery</Text>
         </View>
       </View>
 
@@ -125,7 +127,7 @@ export default function ShareReceiptScreen({ navigation }: any) {
           <Text style={styles.prefTitle}>Request Bursar Read Receipt</Text>
           <Text style={styles.prefSub}>Automatic push update when the bursar desk logs this in the ledger</Text>
         </View>
-        <Switch value={readReceipt} onValueChange={setReadReceipt} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={readReceipt ? THEME.colors.accentGreen : '#FFF'} />
+        <Switch value={readReceipt} onValueChange={setReadReceipt} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={readReceipt ? THEME.colors.secondary : '#FFF'} />
       </View>
 
       <View style={styles.prefRow}>
@@ -133,11 +135,11 @@ export default function ShareReceiptScreen({ navigation }: any) {
           <Text style={styles.prefTitle}>Save Copy to EduFort Cloud Vault</Text>
           <Text style={styles.prefSub}>Keep a permanent auto-PDF in your encrypted records</Text>
         </View>
-        <Switch value={saveVault} onValueChange={setSaveVault} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={saveVault ? THEME.colors.accentGreen : '#FFF'} />
+        <Switch value={saveVault} onValueChange={setSaveVault} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={saveVault ? THEME.colors.secondary : '#FFF'} />
       </View>
 
       <View style={styles.noteCard}>
-        <Text style={styles.noteIcon}>ℹ️</Text>
+        <Icon name="info" size={16} style={styles.noteIcon} />
         <Text style={styles.noteTxt}>Peter Kibukosya Bursar desk operates automated ledger sync on WhatsApp Business API. Acknowledgements typically post within 10 minutes.</Text>
       </View>
 
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
   recipientCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: THEME.colors.cardBackground, borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   recipientLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
   recipientIconWrap: { width: 40, height: 40, borderRadius: 12, backgroundColor: '#F1F5F9', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  recipientIcon: { fontSize: 20 },
+  recipientIcon: { fontSize: 20 }, // kept for layout reference
   recipientBody: { flex: 1 },
   recipientNameRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', marginBottom: 3 },
   recipientName: { fontSize: 14, fontWeight: '700', color: THEME.colors.textDark, marginRight: 8 },
@@ -212,8 +214,9 @@ const styles = StyleSheet.create({
   previewBullets: { marginBottom: 12 },
   previewBullet: { fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
   previewActions: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#D1FAE5', paddingTop: 10 },
+  previewActionsRow: { flexDirection: 'row', gap: 6 },
   previewLink: { fontSize: 12, color: THEME.colors.primary, fontWeight: '600' },
-  previewCheck: { fontSize: 11, color: THEME.colors.accentGreen, fontWeight: '600' },
+  previewCheck: { fontSize: 11, color: THEME.colors.secondary, fontWeight: '600' },
   appendLbl: { fontSize: 13, color: THEME.colors.textMuted, marginBottom: 10 },
   appendRow: { flexDirection: 'row', gap: 8, marginBottom: 24 },
   appendBtn: { backgroundColor: THEME.colors.cardBackground, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 20, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },

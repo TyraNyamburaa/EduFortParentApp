@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon, { IconName } from '../../components/Icon';
 
-const NAV_ITEMS = [
-  { id: 'ledger', icon: '📖', title: 'Child Fee Ledgers', sub: '2 Pupils • Sarah (Grade 4) & Brian (Form 2) breakdown...', color: '#005F4B' },
-  { id: 'receipts', icon: '🧾', title: 'Recent Payment Receipts', sub: 'Verify M-Pesa statements & school reference...', color: '#10B981' },
-  { id: 'bursar', icon: '🏫', title: 'School Bursar Desk', sub: 'Direct liaison for missing fee invoices', color: '#3B82F6', available: true },
-  { id: 'protected', icon: '🛡️', title: 'Funds & Ledgers Protected', sub: 'Your savings and school balances are completely safe and backed up in CBK Escrow. No money is lost or compromised.', color: '#8B5CF6' },
+const NAV_ITEMS: { id: string; icon: IconName; title: string; sub: string; color: string; available?: boolean }[] = [
+  { id: 'ledger', icon: 'ledger', title: 'Child Fee Ledgers', sub: '2 Pupils • Sarah (Grade 4) & Brian (Form 2) breakdown...', color: '#005F4B' },
+  { id: 'receipts', icon: 'receipt', title: 'Recent Payment Receipts', sub: 'Verify M-Pesa statements & school reference...', color: '#10B981' },
+  { id: 'bursar', icon: 'school', title: 'School Bursar Desk', sub: 'Direct liaison for missing fee invoices', color: '#3B82F6', available: true },
+  { id: 'protected', icon: 'shield', title: 'Funds & Ledgers Protected', sub: 'Your savings and school balances are completely safe and backed up in CBK Escrow. No money is lost or compromised.', color: '#8B5CF6' },
 ];
 
 export default function NotFoundScreen({ navigation }: any) {
@@ -16,11 +17,11 @@ return (
         <View style={styles.ledgerBadge}><Text style={styles.ledgerBadgeTxt}>LEDGER QUERY</Text></View>
         <View style={styles.ledgerBadge2}><Text style={styles.ledgerBadgeTxt2}>TERM 1</Text></View>
         <View style={styles.notFoundBox}>
-          <View style={styles.notFoundIconWrap}><Text style={styles.notFoundIcon}>🔍</Text></View>
+          <View style={styles.notFoundIconWrap}><Icon name="search" size={30} /></View>
           <Text style={styles.notFoundNum}>404</Text>
         </View>
         <View style={styles.encryptedRow}>
-          <Text style={styles.encryptedIcon}>🔐</Text>
+          <Icon name="fingerprint" size={16} style={styles.encryptedIcon} />
           <Text style={styles.encryptedTxt}>Encrypted Key</Text>
           <Text style={styles.encryptedVal}>#ED-000</Text>
         </View>
@@ -28,7 +29,7 @@ return (
       </View>
 
       <View style={styles.noticeCard}>
-        <Text style={styles.noticeIcon}>📋</Text>
+        <Icon name="clipboard" size={18} style={styles.noticeIcon} />
         <Text style={styles.noticeBadge}>NOTICE OF FILE UPDATE</Text>
       </View>
 
@@ -46,7 +47,7 @@ return (
 
       {NAV_ITEMS.map((item) => (
         <TouchableOpacity key={item.id} style={styles.navItem}>
-          <View style={styles.navIconWrap}><Text style={styles.navIcon}>{item.icon}</Text></View>
+          <View style={styles.navIconWrap}><Icon name={item.icon} size={22} /></View>
           <View style={styles.navBody}>
             <View style={styles.navNameRow}>
               <Text style={styles.navTitle}>{item.title}</Text>
@@ -79,13 +80,13 @@ ledgerCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 16, pa
   notFoundIcon: { fontSize: 30 },
   notFoundNum: { fontSize: 48, fontWeight: '800', color: THEME.colors.textDark },
   encryptedRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' },
-  encryptedIcon: { fontSize: 16, marginRight: 6 },
+  encryptedIcon: { marginRight: 6 },
   encryptedTxt: { fontSize: 12, color: THEME.colors.textMuted, marginRight: 6 },
   encryptedVal: { fontSize: 12, fontWeight: '700', color: THEME.colors.textDark },
-  searchBtn: { position: 'absolute', bottom: 14, right: 14, width: 40, height: 40, borderRadius: 20, backgroundColor: THEME.colors.accentGreen, justifyContent: 'center', alignItems: 'center', elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 },
+  searchBtn: { position: 'absolute', bottom: 14, right: 14, width: 40, height: 40, borderRadius: 20, backgroundColor: THEME.colors.secondary, justifyContent: 'center', alignItems: 'center', elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 },
   searchBtnTxt: { color: '#FFF', fontSize: 14, fontWeight: '700' },
   noticeCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#EFF6FF', borderRadius: 10, padding: 12, marginBottom: 20 },
-  noticeIcon: { fontSize: 18, marginRight: 10, color: '#2563EB' },
+  noticeIcon: { marginRight: 10 },
   noticeBadge: { fontSize: 12, color: '#1E40AF', fontWeight: '700' },
   headline: { fontSize: 24, fontWeight: '800', color: THEME.colors.textDark, marginBottom: 10 },
   subtext: { fontSize: 14, color: THEME.colors.textMuted, lineHeight: 20, marginBottom: 24 },

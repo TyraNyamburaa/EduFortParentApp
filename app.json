@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "plugins": [],
     "splash": {
       "image": "./assets/splash-logo.png",
       "resizeMode": "contain",

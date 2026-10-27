@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon, { IconName } from '../../components/Icon';
 
-const MENU_ITEMS = [
-  { id: 'calendar', icon: '📅', label: 'Term Fee Calendar', sub: 'Academic cycle & deadlines', color: '#005F4B' },
-  { id: 'plan', icon: '📊', label: 'Financial Planning', sub: 'Cash flow & simulator', color: '#10B981' },
-  { id: 'updates', icon: '🔔', label: 'Updates & Cheers', sub: 'Nudges, milestones & receipts', color: '#3B82F6' },
-  { id: 'help', icon: '📞', label: 'Help & Support', sub: 'Direct assistance & FAQ', color: '#EF4444' },
-  { id: 'profile', icon: '👤', label: 'Profile & Settings', sub: 'Household, security & preferences', color: '#8B5CF6' },
-  { id: 'receipt', icon: '🧾', label: 'Receipts', sub: 'Official PDF receipts', color: '#F59E0B' },
+const MENU_ITEMS: { id: string; icon: IconName; label: string; sub: string; color: string }[] = [
+  { id: 'calendar', icon: 'calendar', label: 'Term Fee Calendar', sub: 'Academic cycle & deadlines', color: '#005F4B' },
+  { id: 'plan', icon: 'chart', label: 'Financial Planning', sub: 'Cash flow & simulator', color: '#10B981' },
+  { id: 'updates', icon: 'notification', label: 'Updates & Cheers', sub: 'Nudges, milestones & receipts', color: '#3B82F6' },
+  { id: 'help', icon: 'call', label: 'Help & Support', sub: 'Direct assistance & FAQ', color: '#EF4444' },
+  { id: 'profile', icon: 'settings', label: 'Profile & Settings', sub: 'Household, security & preferences', color: '#8B5CF6' },
+  { id: 'receipt', icon: 'receipt', label: 'Receipts', sub: 'Official PDF receipts', color: '#F59E0B' },
 ];
 
 export default function MoreScreen({ navigation }: any) {
@@ -24,7 +25,7 @@ export default function MoreScreen({ navigation }: any) {
           onPress={() => navigation.navigate(item.id.charAt(0).toUpperCase() + item.id.slice(1))}
         >
           <View style={[styles.menuIcon, { backgroundColor: item.color + '22' }]}>
-            <Text style={styles.menuIconTxt}>{item.icon}</Text>
+            <Icon name={item.icon} size={24} />
           </View>
           <View style={styles.menuBody}>
             <Text style={styles.menuLabel}>{item.label}</Text>
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 14, color: THEME.colors.textMuted, marginBottom: 24 },
   menuItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   menuIcon: { width: 48, height: 48, borderRadius: 14, justifyContent: 'center', alignItems: 'center', marginRight: 14 },
-  menuIconTxt: { fontSize: 24 },
+  menuIconTxt: { fontSize: 24 }, // no longer used; kept for layout stability
   menuBody: { flex: 1 },
   menuLabel: { fontSize: 16, fontWeight: '700', color: THEME.colors.textDark },
   menuSub: { fontSize: 12, color: THEME.colors.textMuted, marginTop: 3 },

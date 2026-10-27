@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 export default function ProfileScreen({ navigation }: any) {
   const [biometric, setBiometric] = React.useState(true);
@@ -9,17 +10,17 @@ export default function ProfileScreen({ navigation }: any) {
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
       <View style={styles.profileCard}>
         <View style={styles.profileLeft}>
-          <View style={styles.profileAvatar}><Text style={styles.profileAvatarTxt}>👨</Text></View>
+          <View style={styles.profileAvatar}><Icon name="father" size={28} /></View>
           <View style={styles.profileBody}>
             <View style={styles.profileNameRow}>
               <Text style={styles.profileName}>Winfrida Mwangi</Text>
-              <Text style={styles.verifiedTxt}>✓ Verified National ID</Text>
+              <Text style={styles.verifiedTxt}>Verified National ID</Text>
             </View>
             <Text style={styles.profileMeta}>254 717 ••• 576 • Active Household Tier</Text>
             <View style={styles.profileBadgeRow}>
               <View style={styles.locationRow}>
-                <Text style={styles.locationIcon}>📍</Text>
-                <Text style={styles.locationTxt}>Nairobi County • 2 Children Protected</Text>
+                <Icon name="location" size={14} />
+                <Text style={styles.locationTxt}> Nairobi County • 2 Children Protected</Text>
               </View>
               <TouchableOpacity style={styles.badgeBtn}><Text style={styles.badgeBtnTxt}>Badge ›</Text></TouchableOpacity>
             </View>
@@ -34,7 +35,7 @@ export default function ProfileScreen({ navigation }: any) {
       </View>
 
       <TouchableOpacity style={styles.childCard}>
-        <View style={styles.childAvatarWrap}><Text style={styles.childAvatarTxt}>👩</Text></View>
+        <View style={styles.childAvatarWrap}><Icon name="mother" size={22} /></View>
         <View style={styles.childBody}>
           <Text style={styles.childName}>Malia Wanjiku • Grade 1 (CBC)</Text>
           <Text style={styles.childSchool}>Peter Kibukosya Primary School</Text>
@@ -47,7 +48,7 @@ export default function ProfileScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.childCard}>
-        <View style={styles.childAvatarWrap2}><Text style={styles.childAvatarTxt2}>👧</Text></View>
+        <View style={styles.childAvatarWrap2}><Icon name="girl" size={22} /></View>
         <View style={styles.childBody}>
           <Text style={styles.childName}>Malkia Nyawira • Grade 1</Text>
           <Text style={styles.childSchool}>Peter Kibukosya Primary School</Text>
@@ -65,7 +66,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon}>💰</Text>
+          <Icon name="money" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Primary Income Rhythm</Text>
             <Text style={styles.infoSub}>Aligned with Weekly Chama Cycle</Text>
@@ -76,7 +77,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon2}>📱</Text>
+          <Icon name="mobile" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Safaricom M-Pesa Express</Text>
             <Text style={styles.infoSub}>0717 ••• 576 • Auto-STK Enabled</Text>
@@ -87,7 +88,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon3}>🏦</Text>
+          <Icon name="savings" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Secondary Backup Wallet</Text>
             <Text style={styles.infoSub}>Airtel Money or Equity Bank</Text>
@@ -98,7 +99,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon4}>🛡️</Text>
+          <Icon name="shield" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Daily Micro-Save Cap</Text>
             <Text style={styles.infoSub}>Guardrail limit for pocket stability</Text>
@@ -113,18 +114,18 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon5}>🔐</Text>
+          <Icon name="fingerprint" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Biometric Login</Text>
             <Text style={styles.infoSub}>Fingerprint / FaceID instant access</Text>
           </View>
         </View>
-        <Switch value={biometric} onValueChange={setBiometric} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={biometric ? THEME.colors.accentGreen : '#FFF'} />
+        <Switch value={biometric} onValueChange={setBiometric} trackColor={{ false: '#CBD5E1', true: '#86EFAC' }} thumbColor={biometric ? THEME.colors.secondary : '#FFF'} />
       </View>
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon6}>🔑</Text>
+          <Icon name="fingerprint" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Change 4-Digit App PIN</Text>
             <Text style={styles.infoSub}>Updated 42 days ago</Text>
@@ -135,7 +136,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon7}>💸</Text>
+          <Icon name="autopay" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>M-Pesa STK Authorization</Text>
             <Text style={styles.infoSub}>Require biometric verification before prompt</Text>
@@ -146,7 +147,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.trustCard}>
         <View style={styles.trustLeft}>
-          <Text style={styles.trustIcon}>🔐</Text>
+          <Icon name="fingerprint" size={20} style={styles.trustIcon} />
           <View>
             <Text style={styles.trustTitle}>256-bit Bank Grade Encryption</Text>
             <Text style={styles.trustSub}>Regulated Custodial Partner • Central Bank of Kenya Guidelines</Text>
@@ -160,7 +161,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon8}>🌐</Text>
+          <Icon name="language" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Language / Luga</Text>
             <Text style={styles.infoSub}>English (Kenya)</Text>
@@ -171,7 +172,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon9}>📬</Text>
+          <Icon name="notification" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Notification Channels</Text>
             <Text style={styles.infoSub}>SMS Prompts &amp; WhatsApp Reminders Active</Text>
@@ -182,7 +183,7 @@ export default function ProfileScreen({ navigation }: any) {
 
       <View style={styles.infoCard}>
         <View style={styles.infoLeft}>
-          <Text style={styles.infoIcon10}>📄</Text>
+          <Icon name="document" size={20} style={styles.infoIcon} />
           <View>
             <Text style={styles.infoTitle}>Monthly PDF Statements</Text>
             <Text style={styles.infoSub}>Delivered to WhatsApp on 1st of month</Text>
@@ -213,7 +214,6 @@ const styles = StyleSheet.create({
   profileCard: { backgroundColor: '#0F2922', borderRadius: 16, padding: 16, marginBottom: 24 },
   profileLeft: { flexDirection: 'row', alignItems: 'flex-start' },
   profileAvatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: '#FDE68A', justifyContent: 'center', alignItems: 'center', marginRight: 14 },
-  profileAvatarTxt: { fontSize: 28 },
   profileBody: { flex: 1 },
   profileNameRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', marginBottom: 4 },
   profileName: { color: '#FFF', fontSize: 18, fontWeight: '800', marginRight: 8 },
@@ -231,28 +231,17 @@ const styles = StyleSheet.create({
   sectionLink: { fontSize: 13, color: THEME.colors.primary, fontWeight: '600' },
   childCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.colors.cardBackground, borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   childAvatarWrap: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#FDE68A', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  childAvatarTxt: { fontSize: 22 },
   childAvatarWrap2: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#FBCFE8', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  childAvatarTxt2: { fontSize: 22 },
   childBody: { flex: 1 },
   childName: { fontSize: 15, fontWeight: '700', color: THEME.colors.textDark, marginBottom: 3 },
   childSchool: { fontSize: 12, color: THEME.colors.textMuted, marginBottom: 2 },
-  childStatus: { fontSize: 11, color: THEME.colors.accentGreen, fontWeight: '600' },
+  childStatus: { fontSize: 11, color: THEME.colors.secondary, fontWeight: '600' },
   childRight: { alignItems: 'flex-end' },
   childPaybill: { fontSize: 11, color: THEME.colors.textMuted, marginBottom: 4 },
   childArrow: { fontSize: 18, color: THEME.colors.textMuted },
   infoCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: THEME.colors.cardBackground, borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   infoLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  infoIcon: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon2: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon3: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon4: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon5: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon6: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon7: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon8: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon9: { fontSize: 20, marginRight: 12, width: 28 },
-  infoIcon10: { fontSize: 20, marginRight: 12, width: 28 },
+  infoIcon: { marginRight: 12, width: 28 },
   infoTitle: { fontSize: 15, fontWeight: '600', color: THEME.colors.textDark, marginBottom: 3 },
   infoSub: { fontSize: 12, color: THEME.colors.textMuted },
   changeBtn: { backgroundColor: '#F1F5F9', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8 },

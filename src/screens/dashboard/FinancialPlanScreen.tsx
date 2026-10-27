@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 export default function FinancialPlanScreen({ navigation }: any) {
   const [dailyTarget, setDailyTarget] = useState(160);
@@ -10,7 +11,7 @@ export default function FinancialPlanScreen({ navigation }: any) {
       <View style={styles.dignityCard}>
         <View style={styles.dignityLeft}>
           <View style={styles.shieldIconWrap}>
-            <Text style={styles.shieldTxt}>🛡️</Text>
+            <Icon name="shield" size={20} />
           </View>
           <View>
             <Text style={styles.dignityTitle}>DIGNITY SHIELD ACTIVE</Text>
@@ -43,7 +44,7 @@ export default function FinancialPlanScreen({ navigation }: any) {
           </View>
           <View style={styles.cashSplit}>
             <Text style={styles.cashLbl}>School Share</Text>
-            <Text style={[styles.cashVal, { color: THEME.colors.accentGreen }]}>30%</Text>
+            <Text style={[styles.cashVal, { color: THEME.colors.secondary }]}>30%</Text>
           </View>
         </View>
       </View>
@@ -72,7 +73,7 @@ export default function FinancialPlanScreen({ navigation }: any) {
       <View style={styles.childCard}>
         <View style={styles.childTop}>
           <View style={styles.childAvatarWrap}>
-            <Text style={styles.childAvatarTxt}>👩</Text>
+            <Icon name="mother" size={22} />
           </View>
           <View style={styles.childInfo}>
             <Text style={styles.childName}>Malia Wanjiku</Text>
@@ -99,7 +100,7 @@ export default function FinancialPlanScreen({ navigation }: any) {
       <View style={styles.childCard}>
         <View style={styles.childTop}>
           <View style={styles.childAvatarWrap2}>
-            <Text style={styles.childAvatarTxt2}>👧</Text>
+            <Icon name="girl" size={22} />
           </View>
           <View style={styles.childInfo}>
             <Text style={styles.childName}>Malkia Nyawira</Text>
@@ -217,7 +218,7 @@ export default function FinancialPlanScreen({ navigation }: any) {
           <View style={styles.simStatDivider} />
           <View style={styles.simStat}>
             <Text style={styles.simStatLbl}>Date Buffer</Text>
-            <Text style={[styles.simStatVal, { color: THEME.colors.accentGreen }]}>+14 Days early</Text>
+            <Text style={[styles.simStatVal, { color: THEME.colors.secondary }]}>+14 Days early</Text>
           </View>
         </View>
         <View style={styles.priorityRow}>
@@ -236,11 +237,11 @@ export default function FinancialPlanScreen({ navigation }: any) {
 
       <View style={styles.actionBtns}>
         <TouchableOpacity style={styles.primaryBtn} onPress={() => navigation.navigate('QuickDeposit')}>
-          <Text style={styles.primaryBtnIcon}>✓</Text>
+          <Icon name="check" size={14} style={styles.primaryBtnIcon} />
           <Text style={styles.primaryBtnTxt}>Apply New Target (KES 160)</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ghostBtn}>
-          <Text style={styles.ghostBtnIcon}>📄</Text>
+          <Icon name="document" size={16} style={styles.ghostBtnIcon} />
           <Text style={styles.ghostBtnTxt}>Export Financial Plan (PDF)</Text>
         </TouchableOpacity>
       </View>
@@ -262,7 +263,6 @@ const styles = StyleSheet.create({
   dignityCard: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#0F2922', borderRadius: 16, padding: 16, marginBottom: 10 },
   dignityLeft: { flexDirection: 'row', alignItems: 'center' },
   shieldIconWrap: { width: 40, height: 40, borderRadius: 12, backgroundColor: '#065F46', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  shieldTxt: { fontSize: 20 },
   dignityTitle: { color: '#FFF', fontSize: 12, fontWeight: '700', letterSpacing: 0.5 },
   dignitySub: { color: '#94A3B8', fontSize: 11, marginTop: 2 },
   indexWrap: { alignItems: 'flex-end' },
@@ -291,15 +291,13 @@ const styles = StyleSheet.create({
   commitTrack: { height: 6, backgroundColor: '#F1F5F9', borderRadius: 3, overflow: 'hidden', marginBottom: 8 },
   commitFill: { height: '100%', backgroundColor: THEME.colors.primary, borderRadius: 3 },
   commitBottom: { flexDirection: 'row', justifyContent: 'space-between' },
-  commitLbl: { fontSize: 12, color: THEME.colors.accentGreen, fontWeight: '700' },
+  commitLbl: { fontSize: 12, color: THEME.colors.secondary, fontWeight: '700' },
   commitLbl2: { fontSize: 12, color: '#D97706', fontWeight: '700' },
   sectionTitle: { fontSize: 16, fontWeight: '700', color: THEME.colors.textDark, marginBottom: 14 },
   childCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   childTop: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', marginBottom: 12 },
   childAvatarWrap: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#FDE68A', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  childAvatarTxt: { fontSize: 20 },
   childAvatarWrap2: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#FBCFE8', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  childAvatarTxt2: { fontSize: 20 },
   childInfo: { flex: 1 },
   childName: { fontSize: 15, fontWeight: '700', color: THEME.colors.textDark },
   childMeta: { fontSize: 11, color: THEME.colors.textMuted, marginTop: 2 },
@@ -330,7 +328,7 @@ const styles = StyleSheet.create({
   dotActiveInner: { width: 14, height: 14, borderRadius: 7, backgroundColor: THEME.colors.primary, borderWidth: 3, borderColor: '#FFF' },
   dotLbl: { position: 'absolute', fontSize: 9, color: THEME.colors.textMuted, fontWeight: '700', backgroundColor: '#FFF', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2, transform: [{ translateX: -20 }] },
   dotLblActive: { position: 'absolute', fontSize: 9, color: THEME.colors.primary, fontWeight: '700', backgroundColor: '#FFF', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2, transform: [{ translateX: -30 }] },
-  dotLblGreen: { position: 'absolute', fontSize: 9, color: THEME.colors.accentGreen, fontWeight: '700', backgroundColor: '#FFF', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2, transform: [{ translateX: -30 }] },
+  dotLblGreen: { position: 'absolute', fontSize: 9, color: THEME.colors.secondary, fontWeight: '700', backgroundColor: '#FFF', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2, transform: [{ translateX: -30 }] },
   chartLbl1: { position: 'absolute', bottom: 22, left: '4%', fontSize: 10, color: THEME.colors.textMuted },
   chartLbl2: { position: 'absolute', bottom: 22, left: '30%', fontSize: 10, color: THEME.colors.textMuted },
   chartLbl3: { position: 'absolute', bottom: 22, left: '55%', fontSize: 10, color: THEME.colors.textMuted },
@@ -341,7 +339,7 @@ const styles = StyleSheet.create({
   zeroTxt2: { color: '#FFF', fontSize: 10, fontWeight: '700' },
   coverageRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   coverageLbl: { fontSize: 12, color: THEME.colors.textMuted },
-  coverageVal: { fontSize: 13, fontWeight: '700', color: THEME.colors.accentGreen },
+  coverageVal: { fontSize: 13, fontWeight: '700', color: THEME.colors.secondary },
   insightCard: { backgroundColor: '#0F2922', borderRadius: 14, padding: 16, marginBottom: 16 },
   insightTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   insightTitle: { fontSize: 12, fontWeight: '700', color: '#10B981', letterSpacing: 0.5 },
@@ -377,9 +375,9 @@ const styles = StyleSheet.create({
   zeroSub: { color: '#94A3B8', fontSize: 12, lineHeight: 18 },
   actionBtns: { flexDirection: 'row', gap: 10, marginTop: 8 },
   primaryBtn: { flex: 1, backgroundColor: THEME.colors.primary, padding: 16, borderRadius: 12, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 6 },
-  primaryBtnIcon: { color: '#FFF', fontSize: 16, marginRight: 8, fontWeight: '700' },
+  primaryBtnIcon: { marginRight: 8 },
   primaryBtnTxt: { color: '#FFF', fontSize: 15, fontWeight: '700' },
   ghostBtn: { flex: 1, backgroundColor: THEME.colors.cardBackground, borderWidth: 1.5, borderColor: THEME.colors.border, padding: 16, borderRadius: 12, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 4 },
-  ghostBtnIcon: { color: THEME.colors.textMuted, fontSize: 16, marginRight: 8 },
+  ghostBtnIcon: { marginRight: 8 },
   ghostBtnTxt: { color: THEME.colors.textMuted, fontSize: 14, fontWeight: '600' },
 });

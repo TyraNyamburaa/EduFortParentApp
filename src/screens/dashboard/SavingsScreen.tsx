@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const VAULT_BALANCE = 20408.12;
 
@@ -36,34 +37,35 @@ export default function SavingsScreen({ navigation }: any) {
         <View style={styles.vaultTop}>
           <Text style={styles.vaultLabel}>EDUCATION VAULT</Text>
           <View style={styles.lockBadge}>
-            <Text style={styles.lockTxt}>🔒 Locked & Protected</Text>
+            <Text style={styles.lockTxt}><Icon name="lock" size={12} /> Locked & Protected</Text>
           </View>
         </View>
         <Text style={styles.vaultBal}>KES {VAULT_BALANCE.toLocaleString()}</Text>
         <Text style={styles.vaultSub}>Total Education Vault Balance</Text>
         <View style={styles.shieldRow}>
-          <Text style={styles.shieldTxt}>🛡️ Goal locked balances are safe from personal spend withdrawals.</Text>
+          <Icon name="shield" size={14} />
+          <Text style={styles.shieldTxt}> Goal locked balances are safe from personal spend withdrawals.</Text>
         </View>
         <View style={styles.vaultBtns}>
           <TouchableOpacity style={styles.createBtn}>
             <Text style={styles.createBtnTxt}>＋ Create New Goal</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.recBtn}>
-            <Text style={styles.recBtnTxt}>📋</Text>
+            <Icon name="clipboard" size={18} style={styles.recBtnTxt} />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.momentumCard}>
         <View style={styles.momentumLeft}>
-          <Text style={styles.momentumEmoji}>⚡</Text>
+          <Icon name="bolt" size={22} style={styles.momentumEmoji} />
           <View style={styles.momentumBody}>
             <Text style={styles.momentumTitle}>Daily Micro-Momentum</Text>
             <Text style={styles.momentumSub}>Small daily amounts protect big futures. Saving just KES 50 today keeps Malia in class without stress.</Text>
           </View>
         </View>
         <TouchableOpacity style={styles.depositBtn} onPress={() => navigation.navigate('QuickDeposit')}>
-          <Text style={styles.depositBtnTxt}>⚡ Quick Deposit KES 50</Text>
+          <Text style={styles.depositBtnTxt}><Icon name="bolt" size={12} /> Quick Deposit KES 50</Text>
         </TouchableOpacity>
       </View>
 
@@ -82,7 +84,18 @@ export default function SavingsScreen({ navigation }: any) {
         <View key={g.id} style={styles.goalCard}>
           <View style={styles.goalTop}>
             <View style={styles.goalIconWrap}>
-              <Text style={styles.goalIconEmoji}>{g.id === '1' ? '🎓' : g.id === '2' ? '👕' : g.id === '3' ? '🚌' : '🍽️'}</Text>
+              <Icon
+                name={
+                  g.id === '1'
+                    ? 'tuition'
+                    : g.id === '2'
+                    ? 'uniform'
+                    : g.id === '3'
+                    ? 'transport'
+                    : 'lunch'
+                }
+                size={20}
+              />
             </View>
             <View style={styles.goalTitleWrap}>
               <Text style={styles.goalName}>{g.name}</Text>
@@ -102,7 +115,7 @@ export default function SavingsScreen({ navigation }: any) {
 
           {g.autoRule && (
             <View style={styles.autoRow}>
-              <Text style={styles.autoIcon}>🔄</Text>
+              <Icon name="sync" size={14} style={styles.autoIcon} />
               <Text style={styles.autoTxt}>Auto-save rule: {g.autoRule}</Text>
             </View>
           )}
@@ -125,7 +138,7 @@ export default function SavingsScreen({ navigation }: any) {
               <Text style={styles.addBtnTxt}>＋ Add Funds</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.editBtn}>
-              <Text style={styles.editBtnTxt}>✎ Edit</Text>
+              <Text style={styles.editBtnTxt}>Edit</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuBtn}>
               <Text style={styles.menuBtnTxt}>⋮⋮</Text>
@@ -137,7 +150,7 @@ export default function SavingsScreen({ navigation }: any) {
       {GOALS.find(g => g.id === '4') && (
         <View style={styles.completeCard}>
           <View style={styles.completeLeft}>
-            <Text style={styles.completeEmoji}>🍽️</Text>
+            <Icon name="lunch" size={24} style={styles.completeEmoji} />
             <View>
               <Text style={styles.completeTitle}>Hot Lunch Program</Text>
               <Text style={styles.completeSub}>Almost Complete!</Text>
@@ -145,7 +158,7 @@ export default function SavingsScreen({ navigation }: any) {
           </View>
           <Text style={styles.completePct}>90%</Text>
           <TouchableOpacity style={styles.completeBtn}>
-            <Text style={styles.completeBtnTxt}>✓ Complete Goal • Deposit KES 717</Text>
+            <Text style={styles.completeBtnTxt}><Icon name="check" size={12} /> Complete Goal • Deposit KES 717</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -180,19 +193,19 @@ const styles = StyleSheet.create({
   vaultTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   vaultLabel: { color: '#94A3B8', fontSize: 11, fontWeight: '700', letterSpacing: 1 },
   lockBadge: { backgroundColor: '#065F46', paddingHorizontal: 10, paddingVertical: 3, borderRadius: 12 },
-  lockTxt: { color: '#FFF', fontSize: 10, fontWeight: '600' },
+  lockTxt: { color: '#FFF', fontSize: 10, fontWeight: '600', flexDirection: 'row', alignItems: 'center' },
   vaultBal: { color: '#FFF', fontSize: 32, fontWeight: '800', marginVertical: 4 },
   vaultSub: { color: '#94A3B8', fontSize: 12, marginBottom: 10 },
   shieldRow: { backgroundColor: 'rgba(255,255,255,0.08)', padding: 10, borderRadius: 8, marginBottom: 16 },
-  shieldTxt: { color: '#94A3B8', fontSize: 11, lineHeight: 16 },
+  shieldTxt: { color: '#94A3B8', fontSize: 11, lineHeight: 16, flex: 1 },
   vaultBtns: { flexDirection: 'row', gap: 10 },
   createBtn: { flex: 1, backgroundColor: '#10B981', padding: 14, borderRadius: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
   createBtnTxt: { color: '#FFF', fontSize: 14, fontWeight: '700' },
   recBtn: { width: 48, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 10, justifyContent: 'center', alignItems: 'center' },
-  recBtnTxt: { fontSize: 18 },
+  recBtnTxt: { alignSelf: 'center' },
   momentumCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 20, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   momentumLeft: { flexDirection: 'row', alignItems: 'flex-start', flex: 1, marginRight: 12 },
-  momentumEmoji: { fontSize: 22, marginRight: 10 },
+  momentumEmoji: { marginRight: 10, marginTop: 2 },
   momentumBody: { flex: 1 },
   momentumTitle: { fontSize: 14, fontWeight: '700', color: THEME.colors.textDark, marginBottom: 4 },
   momentumSub: { fontSize: 12, color: THEME.colors.textMuted, lineHeight: 18 },
@@ -209,7 +222,7 @@ const styles = StyleSheet.create({
   goalCard: { backgroundColor: THEME.colors.cardBackground, borderRadius: 14, padding: 16, marginBottom: 14, elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4 },
   goalTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   goalIconWrap: { width: 38, height: 38, borderRadius: 12, backgroundColor: '#F1F5F9', justifyContent: 'center', alignItems: 'center', marginRight: 12 },
-  goalIconEmoji: { fontSize: 20 },
+  goalIconEmoji: { alignSelf: 'center' },
   goalTitleWrap: { flex: 1 },
   goalName: { fontSize: 15, fontWeight: '700', color: THEME.colors.textDark },
   goalChild: { fontSize: 11, color: THEME.colors.textMuted, marginTop: 2 },
@@ -222,7 +235,7 @@ const styles = StyleSheet.create({
   goalTrack: { height: 6, backgroundColor: '#F1F5F9', borderRadius: 3, overflow: 'hidden', marginBottom: 12 },
   goalFill: { height: '100%', borderRadius: 3 },
   autoRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#F0FDF4', padding: 8, borderRadius: 8, marginBottom: 12 },
-  autoIcon: { fontSize: 14, marginRight: 6 },
+  autoIcon: { marginRight: 6 },
   autoTxt: { fontSize: 11, color: '#065F46', flex: 1 },
   goalMetaRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 },
   metaLbl: { fontSize: 11, color: THEME.colors.textMuted },
@@ -236,10 +249,10 @@ const styles = StyleSheet.create({
   menuBtnTxt: { color: THEME.colors.textMuted, fontSize: 14 },
   completeCard: { backgroundColor: '#ECFDF5', borderRadius: 14, padding: 16, marginBottom: 20, borderWidth: 1, borderColor: '#A7F3D0' },
   completeLeft: { flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 12 },
-  completeEmoji: { fontSize: 24, marginRight: 10 },
+  completeEmoji: { marginRight: 10 },
   completeTitle: { fontSize: 14, fontWeight: '700', color: THEME.colors.textDark },
   completeSub: { fontSize: 11, color: THEME.colors.textMuted, marginTop: 2 },
-  completePct: { fontSize: 18, fontWeight: '800', color: THEME.colors.accentGreen, marginBottom: 8 },
+  completePct: { fontSize: 18, fontWeight: '800', color: THEME.colors.secondary, marginBottom: 8 },
   completeBtn: { backgroundColor: THEME.colors.primary, padding: 14, borderRadius: 10, alignItems: 'center' },
   completeBtnTxt: { color: '#FFF', fontSize: 14, fontWeight: '700' },
   quickHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },

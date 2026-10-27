@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 const FAQ_ITEMS = [
   { q: 'What happens if my child changes schools?', open: false },
@@ -29,13 +30,13 @@ export default function HelpScreen({ navigation }: any) {
 
       <View style={styles.directRow}>
         <View style={[styles.directCard, { backgroundColor: '#ECFDF5' }]}>
-          <View style={styles.directIconWrap}><Text style={styles.directIcon}>💬</Text></View>
+          <View style={styles.directIconWrap}><Icon name="chat" size={22} /></View>
           <Text style={styles.directTitle}>WhatsApp Chat</Text>
           <Text style={styles.directSub}>Instant help with M-Pesa deposits, receipts &amp; more</Text>
           <TouchableOpacity style={styles.whatsappBtn}><Text style={styles.whatsappBtnTxt}>WhatsApp</Text></TouchableOpacity>
         </View>
         <View style={[styles.directCard, { backgroundColor: '#EFF6FF' }]}>
-          <View style={styles.directIconWrap2}><Text style={styles.directIcon2}>🏫</Text></View>
+          <View style={styles.directIconWrap2}><Icon name="tuition" size={22} /></View>
           <View style={styles.directTitleRow}>
             <Text style={styles.directTitle}>School Bursar</Text>
             <Text style={styles.trustedTxt}>Trusted Escrow</Text>
@@ -46,7 +47,7 @@ export default function HelpScreen({ navigation }: any) {
       </View>
 
       <View style={styles.agentRow}>
-        <View style={styles.agentAvatar}><Text style={styles.agentAvatarTxt}>👩</Text></View>
+        <View style={styles.agentAvatar}><Icon name="mother" size={20} /></View>
         <View style={styles.agentBody}>
           <Text style={styles.agentName}>Amina from Nairobi Team <Text style={styles.langTxt}>• Swahili • Eng</Text></Text>
           <Text style={styles.agentSub}>&ldquo;Habari Winfrida! Malia&apos;s Term 2 goals is on trac...&rdquo;</Text>
@@ -59,7 +60,7 @@ export default function HelpScreen({ navigation }: any) {
       </View>
 
       <TouchableOpacity style={styles.fastItem}>
-        <View style={styles.fastIconWrap}><Text style={styles.fastIcon}>📄</Text></View>
+        <View style={styles.fastIconWrap}><Icon name="document" size={20} /></View>
         <View style={styles.fastBody}>
           <Text style={styles.fastTitle}>Request Missing School Receipt</Text>
           <Text style={styles.fastSub}>Enter your M-Pesa transaction code (e.g. QK59...) to auto-reconcile with the school ledger.</Text>
@@ -68,7 +69,7 @@ export default function HelpScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.fastItem}>
-        <View style={styles.fastIconWrap2}><Text style={styles.fastIcon2}>⚖️</Text></View>
+        <View style={styles.fastIconWrap2}><Icon name="warning" size={20} /></View>
         <View style={styles.fastBody}>
           <Text style={styles.fastTitle}>Report Fee Discrepancy</Text>
           <Text style={styles.fastSub}>If the printed circular differs from your app balance, trigger our formal bursar review.</Text>
@@ -77,7 +78,7 @@ export default function HelpScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.fastItem}>
-        <View style={styles.fastIconWrap3}><Text style={styles.fastIcon3}>⏸️</Text></View>
+        <View style={styles.fastIconWrap3}><Icon name="pause" size={20} /></View>
         <View style={styles.fastBody}>
           <Text style={styles.fastTitle}>Pause Automations During Hardship</Text>
           <Text style={styles.fastSub}>Zero penalties or fines. Temporarily pause all SMS &amp; STK push prompts with one tap.</Text>
@@ -86,7 +87,7 @@ export default function HelpScreen({ navigation }: any) {
       </TouchableOpacity>
 
       <View style={styles.searchWrap}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <Icon name="search" size={16} style={styles.searchIcon} />
         <TextInput style={styles.searchInput} placeholder="Search answers (e.g. transfers, bursar, M-Pesa)" placeholderTextColor={THEME.colors.textMuted} />
       </View>
 
@@ -116,7 +117,7 @@ export default function HelpScreen({ navigation }: any) {
 
       <View style={styles.escalateCard}>
         <View style={styles.escalateLeft}>
-          <Text style={styles.escalateIcon}>📞</Text>
+          <Icon name="call" size={22} style={styles.escalateIcon} />
           <View>
             <Text style={styles.escalateTitle}>Formal Escalation &amp; Toll-Free</Text>
             <Text style={styles.escalateSub}>Need a formal stamp or mediation letter? Reach our regulatory compliance desk.</Text>

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Image } fro
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { THEME } from '../../constants/theme';
 import { supabase } from '../../utils/supabase';
+import Icon from '../../components/Icon';
 
 export default function PhoneRegistrationScreen({ navigation }: any) {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -62,7 +63,7 @@ export default function PhoneRegistrationScreen({ navigation }: any) {
         <Text style={styles.inputLabel}>Mobile Phone Number</Text>
         <View style={styles.phoneInputContainer}>
           <TouchableOpacity style={styles.prefixWrapper}>
-            <Text style={styles.prefixTxt}>🇰🇪 +254</Text>
+            <Text style={styles.prefixTxt}><Icon name="kenya" size={16} /> +254</Text>
             <Image source={require('../../../assets/drop-down.png')} style={styles.dropDownIcon} resizeMode="cover" />
           </TouchableOpacity>
           <TextInput

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { THEME } from '../../constants/theme';
+import Icon from '../../components/Icon';
 
 export default function ReceiptScreen({ navigation }: any) {
   return (
@@ -8,7 +9,7 @@ export default function ReceiptScreen({ navigation }: any) {
       <View style={styles.receiptCard}>
         <View style={styles.receiptHeader}>
           <View style={styles.schoolIconWrap}>
-            <Text style={styles.schoolIconEmoji}>🎓</Text>
+            <Icon name="tuition" size={20} />
           </View>
           <View style={styles.receiptTitleWrap}>
             <Text style={styles.receiptTitle}>Peter Kibukosya Primary</Text>
@@ -20,7 +21,7 @@ export default function ReceiptScreen({ navigation }: any) {
 
         <View style={styles.statusCard}>
           <View style={styles.sealWrap}>
-            <Text style={styles.sealEmoji}>✅</Text>
+            <Icon name="check" size={18} />
           </View>
           <View style={styles.statusBody}>
             <Text style={styles.statusTitle}>PAID IN FULL • VALID FOR EXAM ENTRY</Text>
@@ -49,13 +50,13 @@ export default function ReceiptScreen({ navigation }: any) {
           <View style={styles.infoRow}><Text style={styles.infoLbl}>Method</Text><Text style={styles.infoVal}>M-Pesa</Text></View>
           <View style={styles.infoRow}><Text style={styles.infoLbl}>M-Pesa Ref</Text><Text style={styles.infoVal}>QKD9201M88</Text></View>
           <View style={styles.infoRow}><Text style={styles.infoLbl}>Outstanding Prior Balance</Text><Text style={[styles.infoVal, { color: '#DC2626' }]}>KES 15,500.00</Text></View>
-          <View style={styles.infoRow}><Text style={styles.infoLbl}>Amount Credited</Text><Text style={[styles.infoVal, { color: THEME.colors.accentGreen }]}>- KES 5,000.00</Text></View>
+          <View style={styles.infoRow}><Text style={styles.infoLbl}>Amount Credited</Text><Text style={[styles.infoVal, { color: THEME.colors.secondary }]}>- KES 5,000.00</Text></View>
           <View style={[styles.infoRow, styles.totalRow]}><Text style={styles.totalLbl}>New Term 2 Arrears</Text><Text style={styles.totalVal}>KES 10,500.00</Text></View>
           <View style={styles.protectedBadge}><Text style={styles.protectedTxt}>Protected on Edufort Micro-Pace</Text></View>
         </View>
 
         <View style={styles.qrCard}>
-          <View style={styles.qrIconWrap}><Text style={styles.qrIcon}>📷</Text></View>
+          <View style={styles.qrIconWrap}><Icon name="scan" size={18} /></View>
           <View style={styles.qrBody}>
             <Text style={styles.qrTitle}>Gate Pass &amp; Exam Hall QR</Text>
             <Text style={styles.qrSub}>Scan at Academy Bursary Gate 2 for clearance</Text>
@@ -64,17 +65,17 @@ export default function ReceiptScreen({ navigation }: any) {
         </View>
 
         <View style={styles.regCard}>
-          <Text style={styles.regIcon}>🛡️</Text>
+          <Icon name="shield" size={18} style={styles.regIcon} />
           <Text style={styles.regTxt}>Recognized under Central Bank of Kenya Custodial Framework and Peter Kibukosya Bursar Regulations. Confers clearance for mid-term exams and report card collection.</Text>
         </View>
 
         <TouchableOpacity style={styles.pdfBtn} onPress={() => navigation.navigate('ReceiptExport')}>
-          <Text style={styles.pdfBtnIcon}>⬇️</Text>
+          <Icon name="download" size={16} style={styles.pdfBtnIcon} />
           <Text style={styles.pdfBtnTxt}>Download Official PDF Receipt</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.whatsappBtn} onPress={() => navigation.navigate('ShareReceipt')}>
-          <Text style={styles.whatsappBtnIcon}>📤</Text>
+          <Icon name="share" size={16} style={styles.whatsappBtnIcon} />
           <Text style={styles.whatsappBtnTxt}>Share via WhatsApp</Text>
         </TouchableOpacity>
       </View>
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   qrToggle: { width: 40, height: 24, backgroundColor: '#10B981', borderRadius: 12, padding: 2, justifyContent: 'flex-end' },
   qrToggleTrack: { width: 18, height: 18, borderRadius: 9, backgroundColor: '#FFF' },
   regCard: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: '#F0FDF4', borderRadius: 10, padding: 12, marginBottom: 20 },
-  regIcon: { fontSize: 16, marginRight: 8, color: THEME.colors.accentGreen },
+  regIcon: { fontSize: 16, marginRight: 8, color: THEME.colors.secondary },
   regTxt: { flex: 1, fontSize: 11, color: '#065F46', lineHeight: 16 },
   pdfBtn: { backgroundColor: THEME.colors.primary, padding: 16, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 12, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 6 },
   pdfBtnIcon: { color: '#FFF', fontSize: 16, marginRight: 8 },
